@@ -1,13 +1,37 @@
-.storybookButton {
-  display: inline-block;
-  cursor: pointer;
-  border: 0;
-  border-radius: 3em;
-  font-weight: 700;
-  line-height: 1;
-  padding: 11px 20px;
-  font-size: 14px;
-  font-family: var(--font-inter);
-  background-color: #555ab9;
+.container {
+  min-width: 358px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: var(--white);
+  background-color: var(--violet-900);
+  border: 1px solid var(--violet-900);
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 300ms ease-out;
+
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+
+  &:active {
+    color: var(--violet-600);
+    background-color: var(--white);
+    border: 1px solid var(--violet-600);
+
+    animation-duration: 300ms;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+
+    &:active {
+      color: var(--white);
+      background-color: var(--violet-900);
+      border: 1px solid var(--violet-900);
+      cursor: not-allowed;
+    }
+  }
 }

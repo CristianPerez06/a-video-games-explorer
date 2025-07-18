@@ -3,16 +3,25 @@
 import styles from "./Button.module.scss";
 
 export interface ButtonProps {
-  primary?: boolean;
-  backgroundColor?: string;
-  size?: "small" | "medium" | "large";
   label: string;
   onClick?: () => void;
+  isDisabled?: boolean;
 }
 
-const Button = ({ label }: ButtonProps) => {
+const Button = ({ label, isDisabled = false, onClick }: ButtonProps) => {
+  const handleClick = () => {
+    if (isDisabled) return;
+
+    onClick?.();
+  };
+
   return (
-    <button type="button" className={styles.storybookButton}>
+    <button
+      type="button"
+      className={styles["container"]}
+      disabled={isDisabled}
+      onClick={handleClick}
+    >
       {label}
     </button>
   );
