@@ -11,14 +11,16 @@
   cursor: pointer;
   transition: all 300ms ease-out;
 
-  font-family: var(--font-inter);
+  font-family: var(--font-default);
   font-weight: 600;
   font-size: 16px;
   line-height: 24px;
 
   &:active {
-    color: var(--violet-600);
-    background-color: var(--gray-0);
+    background: -webkit-linear-gradient(var(--violet-600), var(--violet-900));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-color: var(--violet-900);
     border: 1px solid var(--violet-600);
 
     animation-duration: 300ms;
