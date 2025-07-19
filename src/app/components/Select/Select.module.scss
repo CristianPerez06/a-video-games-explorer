@@ -1,0 +1,132 @@
+.container {
+  position: relative;
+  min-width: 358px;
+}
+
+.input-container {
+  position: relative;
+}
+
+.input {
+  height: 40px;
+  width: 100%;
+  border-radius: var(--size-5);
+  border: 1px solid #ff00ae33;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 16px 0px #f2d0e766;
+  padding: 0 var(--size-8);
+
+  &:focus-visible {
+    outline: none;
+  }
+
+  &::placeholder {
+    color: #c698b8;
+  }
+
+  &.open {
+    border-radius: var(--size-5) var(--size-5) 0 0;
+    box-shadow: none;
+  }
+}
+
+.icon {
+  position: absolute;
+  height: var(--size-4);
+  width: var(--size-4);
+  color: var(--violet-100);
+  top: 50%;
+  transform: translateY(-50%);
+  left: var(--size-3);
+  color: #c698b8;
+}
+
+.clear-icon-container {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 50%;
+  transform: translateY(-50%);
+  right: var(--size-4);
+
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.clear-icon {
+  height: var(--size-4);
+  width: var(--size-4);
+  color: var(--gray-1000);
+}
+
+.list-container {
+  position: absolute;
+  width: 100%;
+}
+
+.list {
+  max-height: 223px;
+  background: var(--gray-0);
+  margin: 0;
+  padding: 6px var(--size-2);
+  box-sizing: border-box;
+  border: 1px solid #ff00ae33;
+  border-radius: var(--size-5);
+  box-shadow: 0px 4px 16px 0px #f2d0e766;
+  border-top: none;
+  border-radius: 0 0 var(--size-5) var(--size-5);
+  overflow-y: auto;
+}
+
+.list-item {
+  list-style: none;
+  padding: 6px var(--size-2);
+  border-radius: 6px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--pink-50);
+  }
+}
+
+.list-item-empty {
+  padding: 6px var(--size-2);
+}
+
+.list-item-empty-text {
+  display: block;
+  text-align: center;
+  user-select: none;
+
+  font-family: var(--font-default);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.list-item-content {
+  display: flex;
+  align-items: center;
+  gap: var(--size-2);
+}
+
+.list-item-content-text {
+  font-family: var(--font-default);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.list-item-loading {
+  padding: 6px var(--size-2);
+}
+
+.list-item-loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
