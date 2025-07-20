@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
-import { Select } from "@/app/components";
+import { Select } from "@/client/components";
 
 const MOCKED_GAMES = [
   { id: 1, name: "Grand Theft Auto San Andreas", image: "/gta-san.jpg" },

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
-import { Toast } from "@/app/components";
+import { Toast } from "@/client/components";
 
 const meta = {
   title: "Toast",
@@ -25,6 +25,6 @@ export const Error: Story = {
   args: {
     variant: "error",
     title: "Error",
-    description: "This is a error toast notification",
+    description: "This is an error toast notification",
   },
 };

@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Search, X } from "lucide-react";
 import cn from "classnames";
-import { Spinner } from "@/app/components";
+import Spinner from "@/client/components/Spinner";
 import Picture from "./components/Picture";
 
 import styles from "./Select.module.scss";

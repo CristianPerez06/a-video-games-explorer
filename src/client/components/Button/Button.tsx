@@ -10,7 +10,7 @@ export interface ButtonProps {
 
 const Button = ({ label, isDisabled = false, onClick }: ButtonProps) => {
   const handleClick = () => {
-    if (isDisabled) return;
+    console.log("isDisabled", isDisabled);
 
     onClick?.();
   };

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
 import { Star } from "lucide-react";
-import { Chip } from "@/app/components";
+import { Chip } from "@/client/components";
 
 const meta = {
   title: "Chip",
