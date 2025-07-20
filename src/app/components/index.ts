@@ -1,3 +1,3 @@
-import ToastContainer from "./ToastContainer";
+import Home from "./Home/Home";
 
-export { ToastContainer };
+export { Home };

@@ -17,12 +17,6 @@
   --red: #d23f63;
   --green: #67c076;
 
-  --text-color-h1: linear-gradient(180deg, #6727a6 0%, #3c1661 100%);
-  --text-color-h2: #000000;
-  --text-color-h3: #775c90;
-  --text-color-h4: #666666;
-  --text-color-h5: #666666;
-
   --size-1: 4px;
   --size-2: 8px;
   --size-3: 12px;
@@ -31,4 +25,68 @@
   --size-6: 24px;
   --size-7: 28px;
   --size-8: 32px;
+  --size-9: 36px;
+  --size-10: 40px;
+
+  --text-color-h1: linear-gradient(273.17deg, #6727a6 8.25%, #3c1661 91.72%);
+
+  .h1 {
+    font-family: var(--font-default);
+    font-weight: 600;
+    font-size: 24px;
+    letter-spacing: 0;
+    background: var(--text-color-h1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .h2 {
+    font-family: var(--font-default);
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: 0;
+    color: #000000;
+  }
+
+  .h3 {
+    font-family: var(--font-default);
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0;
+    color: #775c90;
+  }
+
+  .h4 {
+    font-family: var(--font-default);
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0;
+    color: #666666;
+
+    @media (min-width: 768px) {
+      font-size: 16px;
+    }
+  }
+
+  .h5 {
+    font-family: var(--font-default);
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0;
+    color: #666666;
+  }
+}
+
+@mixin breakpoint($size) {
+  $breakpoints: (
+    xs: 320px,
+    sm: 480px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px,
+  );
+  @media (min-width: map-get($breakpoints, $size)) {
+    @content;
+  }
 }
