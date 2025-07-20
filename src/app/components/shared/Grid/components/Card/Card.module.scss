@@ -1,0 +1,60 @@
+@import "@/styles/index.scss";
+
+.container {
+  height: 152px;
+  width: 114px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: var(--size-2);
+  position: relative;
+
+  background: var(--gray-500);
+  border-radius: var(--size-2);
+  overflow: hidden;
+  cursor: pointer;
+
+  @include breakpoint(md) {
+    height: 226px;
+    width: 170px;
+  }
+}
+
+.imageContainer {
+  height: 160px;
+  width: 100%;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.action-button {
+  position: absolute;
+  height: var(--size-10);
+  width: var(--size-10);
+  bottom: var(--size-2);
+  right: var(--size-2);
+  border-radius: 100px;
+  padding: var(--size-3);
+  border: none;
+  padding: 0;
+  background: var(--gray-0);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+
+  &:hover {
+    background: var(--gray-200);
+  }
+}
+
+.trash-icon {
+  height: var(--size-4);
+  width: var(--size-4);
+  color: var(--gray-100);
+}

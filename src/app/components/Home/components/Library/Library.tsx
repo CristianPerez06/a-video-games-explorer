@@ -1,19 +1,56 @@
 import Image from "next/image";
+import cn from "classnames";
 import LibraryImage from "../../../../../../public/images/games-library.svg";
+import { useIntersectionObserver } from "@/client/hooks";
+import { SavedGame } from "@/app/types";
+import Grid from "@/app/components/shared/Grid";
+import { SortButtons } from "./components";
 
 import styles from "./Library.module.scss";
 
 interface LibraryProps {
-  items: string[]; // TODO - Add correct type
+  items: SavedGame[];
 }
 
 const Library = ({ items }: LibraryProps) => {
+  const { elementRef: sortButtonsRef, isVisible: isTestVisible } =
+    useIntersectionObserver({
+      threshold: 0,
+      rootMargin: "0px",
+    });
+
   return (
     <div className={styles["container"]}>
-      <div className={styles["content"]}>
+      {/* Fixed positioned floating buttons */}
+      <div
+        className={cn(
+          styles["sort-buttons-container"],
+          styles["floating"],
+          !isTestVisible && styles["floating-visible"]
+        )}
+      >
+        <SortButtons />
+      </div>
+
+      <div
+        className={cn(
+          styles["content"],
+          items.length > 0 && styles["with-items"]
+        )}
+      >
         <span className={styles["title"]}>Saved games</span>
+        <div
+          className={cn(
+            styles["sort-buttons-container"],
+            !isTestVisible && styles["hidden"]
+          )}
+          ref={sortButtonsRef}
+        >
+          <SortButtons />
+        </div>
+
         {/* Empty state */}
-        {items.length == 0 && (
+        {/* {items.length == 0 && (
           <div className={styles["empty-library"]}>
             <Image
               src={LibraryImage.src}
@@ -30,7 +67,9 @@ const Library = ({ items }: LibraryProps) => {
               </span>
             </div>
           </div>
-        )}
+        )} */}
+        {/* Grid list */}
+        <Grid items={items} />
       </div>
     </div>
   );
