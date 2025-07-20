@@ -1,0 +1,76 @@
+@import "@/styles/index.scss";
+
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: var(--size-4) var(--size-4) 0 var(--size-4);
+}
+
+.content {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 60px;
+
+  @include breakpoint(md) {
+    gap: 50px;
+    width: 728px;
+  }
+}
+
+.title {
+  font-family: var(--font-default);
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: 0;
+  color: var(--gray-1000);
+
+  background: var(--text-color-h1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: left;
+
+  @include breakpoint(md) {
+    text-align: center;
+  }
+}
+
+.empty-library {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--size-8);
+}
+
+.empty-library-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--size-2);
+}
+
+.empty-library-title {
+  font-family: var(--font-default);
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--gray-1000);
+  text-align: left;
+
+  @include breakpoint(md) {
+    text-align: center;
+  }
+}
+
+.empty-library-description {
+  font-family: var(--font-default);
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0;
+  color: var(--text-color-h4);
+}
