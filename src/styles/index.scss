@@ -1,4 +1,34 @@
 :root {
-  --white: #ffffff;
-  --black: #000000;
+  --gray-0: #ffffff;
+  --gray-200: #e5e5e5;
+  --gray-500: #5c5c5c;
+  --gray-1000: #000000;
+
+  --violet-50: #e2dce7;
+  --violet-100: #e7c0db;
+  --violet-600: #6727a6;
+  --violet-900: #3c1661;
+
+  --pink-50: #f2d0e7;
+  --pink-100: #e7c0db;
+  --pink-200: #c698b8;
+  --pink-600: #ff00ae;
+
+  --red: #d23f63;
+  --green: #67c076;
+
+  --text-color-h1: linear-gradient(180deg, #6727a6 0%, #3c1661 100%);
+  --text-color-h2: #000000;
+  --text-color-h3: #775c90;
+  --text-color-h4: #666666;
+  --text-color-h5: #666666;
+
+  --size-1: 4px;
+  --size-2: 8px;
+  --size-3: 12px;
+  --size-4: 16px;
+  --size-5: 20px;
+  --size-6: 24px;
+  --size-7: 28px;
+  --size-8: 32px;
 }

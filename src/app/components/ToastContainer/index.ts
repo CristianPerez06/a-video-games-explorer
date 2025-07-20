@@ -1,3 +1,3 @@
 import ToastContainer from "./ToastContainer";
 
-export { ToastContainer };
+export default ToastContainer;

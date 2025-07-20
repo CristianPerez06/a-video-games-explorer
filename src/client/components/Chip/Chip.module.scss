@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--size-1);
+  padding: var(--size-2) var(--size-4);
+  border: 1px solid var(--violet-50);
+  border-radius: 100px;
+  color: var(--violet-600);
+  user-select: none;
+
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+
+    > svg {
+      width: 13px;
+      height: 13px;
+      stroke: var(--violet-600);
+    }
+  }
+
+  .title {
+    font-family: var(--font-default);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0%;
+  }
+
+  .description {
+    font-family: var(--font-default);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0%;
+    color: var(--violet-900);
+  }
+}
