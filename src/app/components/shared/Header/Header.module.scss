@@ -1,7 +1,8 @@
 @import "@/styles/index.scss";
 
 .container {
-  height: 276px;
+  height: 170px;
+
   width: 100%;
   padding: var(--size-8) var(--size-4) 0 var(--size-4);
 
@@ -29,6 +30,7 @@
   user-select: none;
 
   @include breakpoint(md) {
+    height: 276px;
     padding-top: 128px;
     background-image: url("../../../../../public/images/background-big.svg");
   }
