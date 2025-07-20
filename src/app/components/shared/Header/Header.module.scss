@@ -1,0 +1,35 @@
+@import "@/styles/index.scss";
+
+.container {
+  height: 276px;
+  width: 100%;
+  padding: var(--size-8) var(--size-4) 0 var(--size-4);
+
+  background-image: url("../../../../../public/images/background-small.svg");
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 1)
+    );
+    z-index: 0;
+  }
+
+  user-select: none;
+
+  @include breakpoint(md) {
+    padding-top: 128px;
+    background-image: url("../../../../../public/images/background-big.svg");
+  }
+}
