@@ -1,6 +1,6 @@
 import Image from "next/image";
 import cn from "classnames";
-import LibraryImage from "../../../../../../public/images/games-library.svg";
+import LibraryImage from "@public/images/games-library.svg";
 import { useIntersectionObserver } from "@/client/hooks";
 import { SavedGame } from "@/app/types";
 import Grid from "@/app/components/shared/Grid";
@@ -21,16 +21,18 @@ const Library = ({ items }: LibraryProps) => {
 
   return (
     <div className={styles["container"]}>
-      {/* Fixed positioned floating buttons */}
-      <div
-        className={cn(
-          styles["sort-buttons-container"],
-          styles["floating"],
-          !isTestVisible && styles["floating-visible"]
-        )}
-      >
-        <SortButtons />
-      </div>
+      {/* Sorting buttons - Floating*/}
+      {items.length > 0 && (
+        <div
+          className={cn(
+            styles["sort-buttons-container"],
+            styles["floating"],
+            !isTestVisible && styles["floating-visible"]
+          )}
+        >
+          <SortButtons />
+        </div>
+      )}
 
       <div
         className={cn(
@@ -39,18 +41,22 @@ const Library = ({ items }: LibraryProps) => {
         )}
       >
         <span className={styles["title"]}>Saved games</span>
-        <div
-          className={cn(
-            styles["sort-buttons-container"],
-            !isTestVisible && styles["hidden"]
-          )}
-          ref={sortButtonsRef}
-        >
-          <SortButtons />
-        </div>
+
+        {/* Sorting buttons */}
+        {items.length > 0 && (
+          <div
+            className={cn(
+              styles["sort-buttons-container"],
+              !isTestVisible && styles["hidden"]
+            )}
+            ref={sortButtonsRef}
+          >
+            <SortButtons />
+          </div>
+        )}
 
         {/* Empty state */}
-        {/* {items.length == 0 && (
+        {items.length == 0 && (
           <div className={styles["empty-library"]}>
             <Image
               src={LibraryImage.src}
@@ -67,7 +73,8 @@ const Library = ({ items }: LibraryProps) => {
               </span>
             </div>
           </div>
-        )} */}
+        )}
+
         {/* Grid list */}
         <Grid items={items} />
       </div>

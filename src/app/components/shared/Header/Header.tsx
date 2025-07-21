@@ -4,12 +4,13 @@ import styles from "./Header.module.scss";
 
 interface HeaderProps {
   onBack?: () => void;
+  onGameSelected: (id: number) => void;
 }
 
-const Header = ({ onBack }: HeaderProps) => {
+const Header = ({ onBack, onGameSelected }: HeaderProps) => {
   return (
     <div className={styles["container"]}>
-      <Content />
+      <Content onGameSelected={onGameSelected} />
     </div>
   );
 };

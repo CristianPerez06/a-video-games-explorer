@@ -3,6 +3,7 @@ import type { Preview } from "@storybook/nextjs";
 import { ImageDecorator } from "./mocks/Image/Decorator";
 import fonts from "../src/fonts/index";
 
+import "../src/app/globals.scss";
 import "../src/styles/index.scss";
 
 export const decorators = [ImageDecorator];

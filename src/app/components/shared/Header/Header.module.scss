@@ -1,4 +1,4 @@
-@import "@/styles/index.scss";
+@use "@/styles/index.scss" as *;
 
 .container {
   height: 170px;
@@ -6,7 +6,7 @@
   width: 100%;
   padding: var(--size-8) var(--size-4) 0 var(--size-4);
 
-  background-image: url("../../../../../public/images/background-small.svg");
+  background-image: url("/images/background-small.svg");
   background-size: cover;
   background-position: top;
   background-repeat: no-repeat;
@@ -32,6 +32,6 @@
   @include breakpoint(md) {
     height: 276px;
     padding-top: 128px;
-    background-image: url("../../../../../public/images/background-big.svg");
+    background-image: url("/images/background-big.svg");
   }
 }

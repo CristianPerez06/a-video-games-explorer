@@ -21,7 +21,9 @@ const Picture = ({ src, alt }: PictureProps) => {
       width={30}
       height={30}
       className={styles["container"]}
-      onError={() => setImageError(true)}
+      onError={() => {
+        setImageError(true);
+      }}
     />
   );
 };
