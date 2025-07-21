@@ -1,8 +1,8 @@
+"use client";
+
 import { useState, useEffect } from "react";
 
-export default function useIntersectionObserver(
-  ref: React.RefObject<HTMLElement | null>
-) {
+const useIntersectionObserver = (ref: React.RefObject<HTMLElement | null>) => {
   const [isIntersecting, setIntersecting] = useState(false);
 
   useEffect(() => {
@@ -24,4 +24,6 @@ export default function useIntersectionObserver(
   }, [ref]);
 
   return isIntersecting;
-}
+};
+
+export default useIntersectionObserver;

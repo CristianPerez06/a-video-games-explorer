@@ -44,12 +44,12 @@ const Library = ({ savedGames, onDeleteGame }: LibraryProps) => {
   return (
     <div className={styles["container"]}>
       {/* Sorting buttons - Floating*/}
-      {games.length > 0 && (
+      {games.length > 0 && !isSortButtonsVisible && (
         <div
           className={cn(
             styles["sort-buttons-container"],
             styles["floating"],
-            !isSortButtonsVisible && styles["floating-visible"]
+            styles["floating-visible"]
           )}
         >
           <SortButtons onSortClick={handleSortClick} />
