@@ -1,4 +1,83 @@
-@use "@/styles/index.scss" as *;
+:root {
+  --gray-0: #ffffff;
+  --gray-200: #e5e5e5;
+  --gray-500: #5c5c5c;
+  --gray-1000: #000000;
+
+  --violet-50: #e2dce7;
+  --violet-100: #e7c0db;
+  --violet-600: #6727a6;
+  --violet-900: #3c1661;
+
+  --pink-50: #f2d0e7;
+  --pink-100: #e7c0db;
+  --pink-200: #c698b8;
+  --pink-600: #ff00ae;
+
+  --red: #d23f63;
+  --green: #67c076;
+
+  --size-1: 4px;
+  --size-2: 8px;
+  --size-3: 12px;
+  --size-4: 16px;
+  --size-5: 20px;
+  --size-6: 24px;
+  --size-7: 28px;
+  --size-8: 32px;
+  --size-9: 36px;
+  --size-10: 40px;
+
+  --text-color-h1: linear-gradient(273.17deg, #6727a6 8.25%, #3c1661 91.72%);
+  --text-color-h4: #666666;
+
+  .h1 {
+    font-family: var(--font-default);
+    font-weight: 600;
+    font-size: 24px;
+    letter-spacing: 0;
+    background: var(--text-color-h1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .h2 {
+    font-family: var(--font-default);
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: 0;
+    color: #000000;
+  }
+
+  .h3 {
+    font-family: var(--font-default);
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0;
+    color: #775c90;
+  }
+
+  .h4 {
+    font-family: var(--font-default);
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0;
+    color: #666666;
+
+    @media (min-width: 768px) {
+      font-size: 16px;
+    }
+  }
+
+  .h5 {
+    font-family: var(--font-default);
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0;
+    color: #666666;
+  }
+}
 
 html,
 body {
