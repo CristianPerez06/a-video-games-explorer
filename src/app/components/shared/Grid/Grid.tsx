@@ -4,16 +4,26 @@ import { Card } from "./components";
 import styles from "./Grid.module.scss";
 
 interface GridProps {
-  items: SavedGame[];
+  games: SavedGame[];
+  onCardClick: (gameId: string) => void;
+  onDeleteClick: (gameId: string) => void;
 }
 
-const Grid = ({ items }: GridProps) => {
+const Grid = ({ games, onCardClick, onDeleteClick }: GridProps) => {
   return (
     <div className={styles["container"]}>
       <div className={styles["content"]}>
         <div className={styles["grid"]}>
-          {items.map((item: SavedGame) => {
-            return <Card key={item.id} imageSrc={item.imageSrc} />;
+          {games.map((item: SavedGame) => {
+            return (
+              <Card
+                key={item.id}
+                id={item.id}
+                imageSrc={item.imageSrc}
+                onClick={onCardClick}
+                onDeleteClick={onDeleteClick}
+              />
+            );
           })}
         </div>
       </div>

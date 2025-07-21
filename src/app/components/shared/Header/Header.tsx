@@ -1,10 +1,11 @@
 import { Content } from "./components";
+import { SavedGame } from "@/app/types";
 
 import styles from "./Header.module.scss";
 
 interface HeaderProps {
   onBack?: () => void;
-  onGameSelected: (id: number) => void;
+  onGameSelected: (game: SavedGame) => void;
 }
 
 const Header = ({ onBack, onGameSelected }: HeaderProps) => {

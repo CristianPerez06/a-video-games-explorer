@@ -75,7 +75,7 @@ export const GET = async (request: NextRequest) => {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-      body: `search "${query}"; fields id,name,cover.image_id;`,
+      body: `search "${query}"; fields id,name,cover.image_id, first_release_date;`,
     });
 
     if (!response.ok) {
