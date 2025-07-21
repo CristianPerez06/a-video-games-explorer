@@ -12,10 +12,14 @@ const useIntersectionObserver = (
 ) => {
   const { threshold = 0, rootMargin = "0px" } = options;
   const elementRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const currentElement = elementRef.current;
+
+    if (!currentElement) {
+      return;
+    }
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -28,14 +32,10 @@ const useIntersectionObserver = (
       }
     );
 
-    if (currentElement) {
-      observer.observe(currentElement);
-    }
+    observer.observe(currentElement);
 
     return () => {
-      if (currentElement) {
-        observer.unobserve(currentElement);
-      }
+      observer.unobserve(currentElement);
     };
   }, [threshold, rootMargin]);
 
