@@ -1,45 +1,27 @@
-"use client";
+import { useState, useEffect } from "react";
 
-import { useEffect, useRef, useState } from "react";
-
-interface UseIntersectionObserverOptions {
-  threshold?: number;
-  rootMargin?: string;
-}
-
-const useIntersectionObserver = (
-  options: UseIntersectionObserverOptions = {}
-) => {
-  const { threshold = 0, rootMargin = "0px" } = options;
-  const elementRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+export default function useIntersectionObserver(
+  ref: React.RefObject<HTMLElement | null>
+) {
+  const [isIntersecting, setIntersecting] = useState(false);
 
   useEffect(() => {
-    const currentElement = elementRef.current;
+    const element = ref.current;
+    if (!element) return;
 
-    if (!currentElement) {
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const [entry] = entries;
-        setIsVisible(entry.isIntersecting);
-      },
-      {
-        threshold,
-        rootMargin,
-      }
+    // Create an IntersectionObserver to observe the ref's visibility
+    const observer = new IntersectionObserver(([entry]) =>
+      setIntersecting(entry.isIntersecting)
     );
 
-    observer.observe(currentElement);
+    // Start observing the element
+    observer.observe(element);
 
+    // Cleanup the observer when the component unmounts or ref changes
     return () => {
-      observer.unobserve(currentElement);
+      observer.disconnect();
     };
-  }, [threshold, rootMargin]);
+  }, [ref]);
 
-  return { elementRef, isVisible };
-};
-
-export default useIntersectionObserver;
+  return isIntersecting;
+}

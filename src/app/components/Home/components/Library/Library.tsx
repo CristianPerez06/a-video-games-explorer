@@ -1,6 +1,6 @@
 import Image from "next/image";
 import cn from "classnames";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import LibraryImage from "@public/images/games-library.svg";
 import { useIntersectionObserver } from "@/client/hooks";
 import { sortGames } from "@/utils";
@@ -19,11 +19,8 @@ const Library = ({ savedGames, onDeleteGame }: LibraryProps) => {
   const [games, setGames] = useState(sortGames(savedGames, "last-added"));
   const [currentSortType, setCurrentSortType] = useState<string>("last-added");
 
-  const { elementRef: sortButtonsRef, isVisible: isSortButtonsVisible } =
-    useIntersectionObserver({
-      threshold: 0,
-      rootMargin: "0px",
-    });
+  const sortButtonsRef = useRef<HTMLDivElement>(null);
+  const isSortButtonsVisible = useIntersectionObserver(sortButtonsRef);
 
   const handleSortClick = (sortId: string) => {
     setCurrentSortType(sortId);
@@ -68,17 +65,13 @@ const Library = ({ savedGames, onDeleteGame }: LibraryProps) => {
         <span className={styles["title"]}>Saved games</span>
 
         {/* Sorting buttons */}
-        {games.length > 0 && (
-          <div
-            className={cn(
-              styles["sort-buttons-container"],
-              isSortButtonsVisible && styles["hidden"]
-            )}
-            ref={sortButtonsRef}
-          >
-            <SortButtons onSortClick={handleSortClick} />
-          </div>
-        )}
+        <div
+          className={styles["sort-buttons-container"]}
+          ref={sortButtonsRef}
+          style={{ display: games.length > 0 ? "flex" : "none" }}
+        >
+          {games.length > 0 && <SortButtons onSortClick={handleSortClick} />}
+        </div>
 
         {/* Empty state */}
         {games.length == 0 && (
