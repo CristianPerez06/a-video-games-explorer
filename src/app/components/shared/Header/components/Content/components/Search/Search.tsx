@@ -1,34 +1,37 @@
 "use client";
 
 import { useState, useCallback, useRef } from "react";
+import { fromUnixTime } from "date-fns";
 import { Select, Toast } from "@/client/components";
 import { toast } from "react-toastify";
 import { debounce } from "lodash";
-import { IGDBGame } from "@/app/types";
+import { IGDBGame, SavedGame } from "@/app/types";
 
 import styles from "./Search.module.scss";
 
 const MIN_QUERY_LENGTH = 3;
 
 type SelectItem = {
-  id: number;
+  id: string;
   name: string;
   image?: string;
 };
 
 interface SearchProps {
-  onGameSelected: (gameId: number) => void;
+  onGameSelected: (game: SavedGame) => void;
 }
 
 const Search = ({ onGameSelected }: SearchProps) => {
-  const [searchResults, setSearchResults] = useState<SelectItem[]>([]);
+  const [searchItemResults, setSearchItemResults] = useState<SelectItem[]>([]);
+  const [searchGameResults, setSearchGameResults] = useState<IGDBGame[]>([]);
+
   const [isLoading, setIsLoading] = useState(false);
 
   const mapGamesToSelectItems = useCallback(
     (games: IGDBGame[]): SelectItem[] => {
       return games.map((game) => {
         return {
-          id: game.id,
+          id: game.id.toString(),
           name: game.name,
           image: game.cover?.image_id
             ? `https://images.igdb.com/igdb/image/upload/t_thumb/${game.cover.image_id}.jpg`
@@ -75,10 +78,34 @@ const Search = ({ onGameSelected }: SearchProps) => {
     []
   );
 
+  const handleGameSelected = (id: string) => {
+    const gameId = Number(id);
+
+    const selectedGameData = searchGameResults.find(
+      (game) => game.id === gameId
+    );
+
+    const savedGame: SavedGame = {
+      id: selectedGameData!.id.toString(),
+      imageSrc: selectedGameData!.cover?.image_id
+        ? `https://images.igdb.com/igdb/image/upload/t_cover_big/${
+            selectedGameData!.cover.image_id
+          }.jpg`
+        : undefined,
+      releaseDate: selectedGameData!.first_release_date
+        ? new Date(fromUnixTime(selectedGameData!.first_release_date))
+        : undefined,
+      addedAt: new Date(),
+    };
+
+    onGameSelected(savedGame);
+  };
+
   const handleSearchRef = useRef(
     debounce(async (query: string) => {
       if (!query || query.trim().length < MIN_QUERY_LENGTH) {
-        setSearchResults([]);
+        setSearchItemResults([]);
+        setSearchGameResults([]);
         return;
       }
 
@@ -90,7 +117,8 @@ const Search = ({ onGameSelected }: SearchProps) => {
         const games = await searchGames(trimmedQuery);
         const selectItems = mapGamesToSelectItems(games);
 
-        setSearchResults(selectItems);
+        setSearchItemResults(selectItems);
+        setSearchGameResults(games);
       } catch (error) {
         console.error("Search failed:", error);
         toast(
@@ -100,7 +128,8 @@ const Search = ({ onGameSelected }: SearchProps) => {
             description="Please try again"
           />
         );
-        setSearchResults([]);
+        setSearchItemResults([]);
+        setSearchGameResults([]);
       } finally {
         setIsLoading(false);
       }
@@ -110,12 +139,11 @@ const Search = ({ onGameSelected }: SearchProps) => {
   return (
     <div className={styles["container"]}>
       <Select
-        items={searchResults}
+        items={searchItemResults}
         isLoading={isLoading}
         onSearch={handleSearchRef.current}
         onItemSelected={(item) => {
-          const numberId = Number(item.id);
-          onGameSelected(numberId);
+          handleGameSelected(item.id);
         }}
       />
     </div>

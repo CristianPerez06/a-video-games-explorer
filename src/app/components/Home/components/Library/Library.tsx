@@ -1,7 +1,9 @@
 import Image from "next/image";
 import cn from "classnames";
+import { useState, useEffect } from "react";
 import LibraryImage from "@public/images/games-library.svg";
 import { useIntersectionObserver } from "@/client/hooks";
+import { sortGames } from "@/utils";
 import { SavedGame } from "@/app/types";
 import Grid from "@/app/components/shared/Grid";
 import { SortButtons } from "./components";
@@ -9,20 +11,43 @@ import { SortButtons } from "./components";
 import styles from "./Library.module.scss";
 
 interface LibraryProps {
-  items: SavedGame[];
+  savedGames: SavedGame[];
+  onDeleteGame: (gameId: string) => void;
 }
 
-const Library = ({ items }: LibraryProps) => {
+const Library = ({ savedGames, onDeleteGame }: LibraryProps) => {
+  const [games, setGames] = useState(sortGames(savedGames, "last-added"));
+  const [currentSortType, setCurrentSortType] = useState<string>("last-added");
+
   const { elementRef: sortButtonsRef, isVisible: isTestVisible } =
     useIntersectionObserver({
       threshold: 0,
       rootMargin: "0px",
     });
 
+  const handleSortClick = (sortId: string) => {
+    setCurrentSortType(sortId);
+    const sortedGames = sortGames(games, sortId);
+    setGames(sortedGames);
+  };
+
+  const handleCardClick = (gameId: string) => {
+    console.log("Card clicked - id: ", gameId);
+  };
+
+  const handleDeleteClick = (gameId: string) => {
+    onDeleteGame(gameId);
+  };
+
+  useEffect(() => {
+    const updatedGames = sortGames(savedGames, currentSortType);
+    setGames(updatedGames);
+  }, [savedGames, currentSortType]);
+
   return (
     <div className={styles["container"]}>
       {/* Sorting buttons - Floating*/}
-      {items.length > 0 && (
+      {games.length > 0 && (
         <div
           className={cn(
             styles["sort-buttons-container"],
@@ -30,20 +55,20 @@ const Library = ({ items }: LibraryProps) => {
             !isTestVisible && styles["floating-visible"]
           )}
         >
-          <SortButtons />
+          <SortButtons onSortClick={handleSortClick} />
         </div>
       )}
 
       <div
         className={cn(
           styles["content"],
-          items.length > 0 && styles["with-items"]
+          games.length > 0 && styles["with-items"]
         )}
       >
         <span className={styles["title"]}>Saved games</span>
 
         {/* Sorting buttons */}
-        {items.length > 0 && (
+        {games.length > 0 && (
           <div
             className={cn(
               styles["sort-buttons-container"],
@@ -51,12 +76,12 @@ const Library = ({ items }: LibraryProps) => {
             )}
             ref={sortButtonsRef}
           >
-            <SortButtons />
+            <SortButtons onSortClick={handleSortClick} />
           </div>
         )}
 
         {/* Empty state */}
-        {items.length == 0 && (
+        {games.length == 0 && (
           <div className={styles["empty-library"]}>
             <Image
               src={LibraryImage.src}
@@ -76,7 +101,11 @@ const Library = ({ items }: LibraryProps) => {
         )}
 
         {/* Grid list */}
-        <Grid items={items} />
+        <Grid
+          games={games}
+          onCardClick={handleCardClick}
+          onDeleteClick={handleDeleteClick}
+        />
       </div>
     </div>
   );

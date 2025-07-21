@@ -11,7 +11,7 @@ import styles from "./Select.module.scss";
 const MIN_QUERY_LENGTH = 3;
 
 type Item = {
-  id: number;
+  id: string;
   name: string;
   image?: string;
 };
@@ -35,6 +35,7 @@ const Select = ({
 
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const isClearingRef = useRef(false);
 
   const handleSearch = (query: string) => {
     setQuery(query);
@@ -42,9 +43,14 @@ const Select = ({
   };
 
   const handleClearInput = () => {
+    isClearingRef.current = true;
     setQuery("");
     setIsOpen(false);
     inputRef.current?.focus();
+    // Reset the clearing flag after a brief delay to allow focus event to complete
+    setTimeout(() => {
+      isClearingRef.current = false;
+    }, 0);
   };
 
   const handleItemClick = (item: Item) => {
@@ -53,7 +59,7 @@ const Select = ({
   };
 
   const handleInputFocus = () => {
-    if (query.length > 0) {
+    if (query.length > 0 && !isClearingRef.current) {
       setIsOpen(true);
     }
   };

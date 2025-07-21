@@ -1,6 +1,8 @@
 export type SavedGame = {
   id: string;
-  imageSrc: string;
+  imageSrc?: string;
+  releaseDate?: Date;
+  addedAt: Date;
 };
 
 export type IGDBGame = {
@@ -9,4 +11,10 @@ export type IGDBGame = {
   cover: {
     image_id: string;
   };
+  first_release_date: number;
 };
+
+export interface SortOption {
+  id: string;
+  description: string;
+}

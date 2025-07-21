@@ -2,11 +2,12 @@
 
 import cn from "classnames";
 import { BackButton, GameHavenIcon, Search } from "./components";
+import { SavedGame } from "@/app/types";
 
 import styles from "./Content.module.scss";
 
 interface ContentProps {
-  onGameSelected: (id: number) => void;
+  onGameSelected: (game: SavedGame) => void;
   onBack?: () => void;
 }
 

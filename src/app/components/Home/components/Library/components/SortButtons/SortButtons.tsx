@@ -1,29 +1,39 @@
 import React, { useState } from "react";
 import cn from "classnames";
+import { SortOption } from "@/app/types";
 
 import styles from "./SortButtons.module.scss";
 
-const SortButtons = () => {
-  const [activeSort, setActiveSort] = useState("Last added");
+interface SortButtonsProps {
+  onSortClick: (sortId: string) => void;
+}
 
-  const sortOptions = ["Last added", "Newest", "Oldest"];
+const SortButtons = ({ onSortClick }: SortButtonsProps) => {
+  const [activeSort, setActiveSort] = useState("last-added");
 
-  const handleSortClick = (sortType: string) => {
-    setActiveSort(sortType);
+  const sortOptions: SortOption[] = [
+    { id: "last-added", description: "Last added" },
+    { id: "newest", description: "Newest" },
+    { id: "oldest", description: "Oldest" },
+  ];
+
+  const handleSortClick = (sortId: string) => {
+    setActiveSort(sortId);
+    onSortClick(sortId);
   };
 
   return (
     <div className={styles["container"]}>
       {sortOptions.map((sortOption) => (
         <button
-          key={sortOption}
+          key={sortOption.id}
           className={cn(
             styles["button"],
-            activeSort === sortOption && styles["active"]
+            activeSort === sortOption.id && styles["active"]
           )}
-          onClick={() => handleSortClick(sortOption)}
+          onClick={() => handleSortClick(sortOption.id)}
         >
-          {sortOption}
+          {sortOption.description}
         </button>
       ))}
     </div>
