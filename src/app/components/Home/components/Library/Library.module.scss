@@ -41,18 +41,12 @@
 
   &.floating {
     position: fixed;
+    display: flex;
     top: 20px;
     left: 50%;
     transform: translateX(-50%) scale(0.95);
     z-index: 1000;
-    opacity: 0;
     pointer-events: none;
-
-    &.floating-visible {
-      opacity: 1;
-      transform: translateX(-50%) scale(1);
-      pointer-events: auto;
-    }
 
     > div {
       padding: var(--size-1);
