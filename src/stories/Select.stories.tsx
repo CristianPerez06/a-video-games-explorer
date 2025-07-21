@@ -2,18 +2,18 @@ import type { Meta, StoryObj } from "@storybook/nextjs";
 import { Select } from "@/client/components";
 
 const MOCKED_GAMES = [
-  { id: 1, name: "Grand Theft Auto San Andreas", image: "/gta-san.jpg" },
-  { id: 2, name: "Grand Theft Auto V", image: "/gta-v.jpg" },
-  { id: 3, name: "Grand Theft Auto IV", image: "/gta-iv.jpg" },
-  { id: 4, name: "Grand Theft Auto III", image: "/gta-iii.jpg" },
-  { id: 5, name: "Grand Theft Auto", image: "/gta-original.jpg" },
-  { id: 6, name: "Another Game", image: "/another.jpg" },
-  { id: 7, name: "Another Game", image: "/another.jpg" },
-  { id: 8, name: "Another Game", image: "/another.jpg" },
-  { id: 9, name: "Another Game", image: "/another.jpg" },
-  { id: 10, name: "Another Game", image: "/another.jpg" },
-  { id: 11, name: "Another Game", image: "/another.jpg" },
-  { id: 12, name: "Another Game", image: "/another.jpg" },
+  { id: "1", name: "Grand Theft Auto San Andreas" },
+  { id: "2", name: "Grand Theft Auto V" },
+  { id: "3", name: "Grand Theft Auto IV" },
+  { id: "4", name: "Grand Theft Auto III" },
+  { id: "5", name: "Grand Theft Auto" },
+  { id: "6", name: "Need for Speed" },
+  { id: "7", name: "Call of Duty" },
+  { id: "8", name: "Battlefield" },
+  { id: "9", name: "FIFA" },
+  { id: "10", name: "Need for Speed II" },
+  { id: "11", name: "Call of Duty II" },
+  { id: "12", name: "Battlefield II" },
 ];
 
 const Wrapper = ({ children }: { children: React.ReactNode }) => {
