@@ -19,7 +19,7 @@ const Library = ({ savedGames, onDeleteGame }: LibraryProps) => {
   const [games, setGames] = useState(sortGames(savedGames, "last-added"));
   const [currentSortType, setCurrentSortType] = useState<string>("last-added");
 
-  const { elementRef: sortButtonsRef, isVisible: isTestVisible } =
+  const { elementRef: sortButtonsRef, isVisible: isSortButtonsVisible } =
     useIntersectionObserver({
       threshold: 0,
       rootMargin: "0px",
@@ -52,7 +52,7 @@ const Library = ({ savedGames, onDeleteGame }: LibraryProps) => {
           className={cn(
             styles["sort-buttons-container"],
             styles["floating"],
-            !isTestVisible && styles["floating-visible"]
+            !isSortButtonsVisible && styles["floating-visible"]
           )}
         >
           <SortButtons onSortClick={handleSortClick} />
@@ -72,7 +72,7 @@ const Library = ({ savedGames, onDeleteGame }: LibraryProps) => {
           <div
             className={cn(
               styles["sort-buttons-container"],
-              !isTestVisible && styles["hidden"]
+              isSortButtonsVisible && styles["hidden"]
             )}
             ref={sortButtonsRef}
           >

@@ -5,7 +5,7 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: var(--size-4) var(--size-4) 0 var(--size-4);
+  padding: var(--size-4);
   position: relative;
 }
 
@@ -33,7 +33,7 @@
 .sort-buttons-container {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   position: relative;
   opacity: 1;
   transform: scale(1);
@@ -54,6 +54,10 @@
       pointer-events: auto;
     }
 
+    > div {
+      padding: var(--size-1);
+    }
+
     @include breakpoint(md) {
       top: 80px;
     }
@@ -63,6 +67,10 @@
     opacity: 0;
     transform: scale(0.95);
     pointer-events: none;
+  }
+
+  @include breakpoint(md) {
+    justify-content: center;
   }
 }
 
