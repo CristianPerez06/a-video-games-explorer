@@ -1,0 +1,67 @@
+@use "@/styles/index.scss" as *;
+
+.container {
+  width: 100%;
+}
+
+.columns {
+  display: flex;
+  gap: var(--size-4);
+}
+
+.right-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-2);
+}
+
+.game-cover-image {
+  background-color: var(--gray-200);
+  border-radius: var(--size-3);
+}
+
+.title {
+  font-family: var(--font-default);
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0;
+  background: var(--text-color-h1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+
+  @include breakpoint(md) {
+    font-weight: 600;
+    font-size: 24px;
+    letter-spacing: 0;
+  }
+}
+
+.publisher {
+  padding-bottom: var(--size-2);
+
+  font-family: var(--font-default);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0;
+  color: var(--text-color-h3);
+
+  @include breakpoint(md) {
+    font-weight: 500;
+    font-size: 14px;
+  }
+}
+
+.mobile-button-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding-top: var(--size-6);
+
+  > button {
+    width: 100%;
+    max-width: 100%;
+  }
+}
