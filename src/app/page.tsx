@@ -1,4 +1,4 @@
-import { Home as HomeContent } from "@/app/components";
+import { Home as HomeContent } from "@/components";
 
 import styles from "./page.module.scss";
 

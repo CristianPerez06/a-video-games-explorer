@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import fontInter from "@/fonts";
-import { ToastContainer } from "@/app/components/shared";
+import { ToastContainer } from "@/components/shared";
 
 import "./globals.scss";
 

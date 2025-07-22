@@ -1,0 +1,123 @@
+@use "@/styles/index.scss" as *;
+
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0 var(--size-4) var(--size-4) var(--size-4);
+  position: relative;
+}
+
+.content {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 60px;
+
+  &.with-items {
+    gap: var(--size-4);
+  }
+
+  @include breakpoint(md) {
+    gap: 50px;
+    width: 728px;
+
+    &.with-items {
+      gap: var(--size-5);
+    }
+  }
+}
+
+.sort-buttons-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+
+  &.floating {
+    position: fixed;
+    display: flex;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) scale(0.95);
+    z-index: 1;
+    pointer-events: none;
+
+    > div {
+      padding: var(--size-1);
+    }
+
+    @include breakpoint(md) {
+      top: 80px;
+    }
+  }
+
+  &.hidden {
+    opacity: 0;
+    transform: scale(0.95);
+    pointer-events: none;
+  }
+
+  @include breakpoint(md) {
+    justify-content: center;
+  }
+}
+
+.title {
+  font-family: var(--font-default);
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: 0;
+  color: var(--gray-1000);
+
+  background: var(--text-color-h1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: left;
+
+  @include breakpoint(md) {
+    text-align: center;
+  }
+}
+
+.empty-library {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--size-8);
+}
+
+.empty-library-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--size-2);
+}
+
+.empty-library-title {
+  font-family: var(--font-default);
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--gray-1000);
+  text-align: left;
+
+  @include breakpoint(md) {
+    text-align: center;
+  }
+}
+
+.empty-library-description {
+  font-family: var(--font-default);
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0;
+  color: var(--text-color-h4);
+}

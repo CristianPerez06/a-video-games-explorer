@@ -81,6 +81,7 @@
 
 html,
 body {
+  height: 100%;
   max-width: 100vw;
   overflow-x: hidden;
 }
@@ -91,6 +92,16 @@ body {
   font-family: var(--font-default);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  background-image: url("/images/background-small.svg");
+  background-size: contain;
+  background-position: top;
+  background-repeat: no-repeat;
+
+  @media (min-width: 768px) {
+    background-image: url("/images/background-big.svg");
+    background-size: contain;
+  }
 }
 
 * {

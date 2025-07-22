@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { IGDBGame } from "@/app/types";
+import { IGDBGame } from "@/types";
 
 // TODO -  Move to .env
 const clientId = "qg0heh2xjyvud06ubvl5sxc8bkbzo1";

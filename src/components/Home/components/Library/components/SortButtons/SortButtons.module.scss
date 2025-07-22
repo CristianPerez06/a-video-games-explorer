@@ -1,0 +1,46 @@
+@use "@/styles/index.scss" as *;
+
+.container {
+  height: var(--size-10);
+  display: flex;
+  gap: var(--size-1);
+  border-radius: 1000px;
+  opacity: 1;
+  padding: var(--size-1);
+  background: var(--gray-0);
+  backdrop-filter: blur(10px);
+
+  @include breakpoint(md) {
+    padding: var(--size-1);
+  }
+}
+
+.button {
+  height: var(--size-8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px var(--size-3);
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  color: var(--violet-900);
+  background-color: transparent;
+  font-family: var(--font-default);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+
+  user-select: none;
+
+  &:hover {
+    background-color: var(--pink-50);
+  }
+
+  &.active {
+    background-color: var(--violet-900);
+    color: var(--gray-0);
+  }
+}

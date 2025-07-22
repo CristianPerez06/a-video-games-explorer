@@ -1,6 +1,11 @@
+@use "@/styles/index.scss" as *;
+
 .container {
   position: relative;
-  min-width: 358px;
+
+  @include breakpoint(md) {
+    width: 358px;
+  }
 }
 
 .input-container {
@@ -66,6 +71,7 @@
 .list-container {
   position: absolute;
   width: 100%;
+  z-index: 2;
 }
 
 .list-content {

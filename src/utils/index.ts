@@ -1,4 +1,4 @@
-import { SavedGame } from "@/app/types";
+import { SavedGame } from "@/types";
 
 export const sortGames = (
   gamesList: SavedGame[],
