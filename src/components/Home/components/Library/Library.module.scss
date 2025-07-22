@@ -35,7 +35,6 @@
   align-items: center;
   justify-content: flex-start;
   position: relative;
-  opacity: 1;
   transform: scale(1);
   transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
 
@@ -46,7 +45,11 @@
     left: 50%;
     transform: translateX(-50%) scale(0.95);
     z-index: 1;
-    pointer-events: none;
+    opacity: 1;
+    background: #ffffffd9;
+    backdrop-filter: blur(10px);
+    border-radius: 1000px;
+    pointer-events: auto;
 
     > div {
       padding: var(--size-1);
@@ -120,4 +123,11 @@
   font-size: 14px;
   letter-spacing: 0;
   color: var(--text-color-h4);
+}
+
+.loading-error-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

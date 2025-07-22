@@ -5,7 +5,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: var(--size-8) var(--size-4) var(--size-5) var(--size-4);
+  padding: 56px var(--size-4) 0 var(--size-4);
   user-select: none;
 
   @include breakpoint(md) {
@@ -31,7 +31,6 @@
   display: flex;
   gap: var(--size-2);
   justify-content: flex-start;
-
   align-items: center;
 
   @include breakpoint(md) {

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import cn from "classnames";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import LibraryImage from "@public/images/games-library.svg";
 import { useIntersectionObserver } from "@/client/hooks";
 import { sortGames } from "@/utils";
@@ -100,7 +100,7 @@ const Library = () => {
   const sortButtonsRef = useRef<HTMLDivElement>(null);
   const isSortButtonsVisible = useIntersectionObserver(sortButtonsRef);
 
-  const fetchGames = async () => {
+  const fetchGames = useCallback(async () => {
     try {
       setIsLoading(true);
       setError(null);
@@ -121,7 +121,7 @@ const Library = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [currentSortType]);
 
   const handleSortClick = (sortId: string) => {
     setCurrentSortType(sortId);
@@ -137,16 +137,9 @@ const Library = () => {
     // onDeleteGame(gameId); // TODO: Implement this
   };
 
-  // useEffect(() => {
-  //   if (games.length > 0) {
-  //     const updatedGames = sortGames(games, currentSortType);
-  //     setGames(updatedGames);
-  //   }
-  // }, [currentSortType, games]);
-
-  if (isLoading) {
-    return <Spinner />;
-  }
+  useEffect(() => {
+    fetchGames();
+  }, [fetchGames]);
 
   return (
     <div className={styles["container"]}>
@@ -169,11 +162,20 @@ const Library = () => {
 
         {/* Sorting buttons */}
         <div className={styles["sort-buttons-container"]} ref={sortButtonsRef}>
-          {games.length > 0 && <SortButtons onSortClick={handleSortClick} />}
+          {!isLoading && games.length > 0 && (
+            <SortButtons onSortClick={handleSortClick} />
+          )}
         </div>
 
+        {/* Loading state */}
+        {isLoading && (
+          <div className={styles["loading-error-container"]}>
+            <Spinner size="lg" variant="dark" />
+          </div>
+        )}
+
         {/* Empty state */}
-        {games.length == 0 && (
+        {!isLoading && games.length == 0 && (
           <div className={styles["empty-library"]}>
             <Image
               src={LibraryImage.src}
@@ -193,11 +195,13 @@ const Library = () => {
         )}
 
         {/* Grid list */}
-        <Grid
-          games={games}
-          onCardClick={handleCardClick}
-          onDeleteClick={handleDeleteClick}
-        />
+        {!isLoading && (
+          <Grid
+            games={games}
+            onCardClick={handleCardClick}
+            onDeleteClick={handleDeleteClick}
+          />
+        )}
       </div>
     </div>
   );
