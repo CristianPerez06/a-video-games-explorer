@@ -5,6 +5,7 @@ import fonts from "../src/fonts/index";
 
 import "../src/app/globals.scss";
 import "../src/styles/index.scss";
+import "./index.scss";
 
 export const decorators = [ImageDecorator];
 

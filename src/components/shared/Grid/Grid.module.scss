@@ -1,0 +1,36 @@
+@use "@/styles/index.scss" as *;
+
+.container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  width: 100%;
+  max-width: 358px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--size-2);
+
+  @include breakpoint(md) {
+    max-width: 728px;
+    gap: var(--size-4);
+  }
+}
+
+.grid {
+  width: 100%;
+  display: grid;
+  grid-gap: var(--size-2);
+  grid-template-columns: repeat(auto-fit, 114px);
+  justify-content: center;
+  padding-top: var(--size-3);
+
+  @include breakpoint(md) {
+    grid-gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, 170px);
+    padding-top: var(--size-5);
+  }
+}
