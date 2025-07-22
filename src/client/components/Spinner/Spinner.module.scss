@@ -41,9 +41,15 @@
   @include positionAndRadius();
 }
 
-.md {
+.lg {
   width: 60px;
   height: 60px;
+  @include positionAndRadius();
+}
+
+.md {
+  width: 40px;
+  height: 40px;
   @include positionAndRadius();
 }
 

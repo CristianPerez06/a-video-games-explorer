@@ -13,19 +13,18 @@
 }
 
 .first-row {
-  height: 102px;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: flex-start;
 }
 
-.select-container {
+.search-container {
+  padding: var(--size-5) var(--size-4) 54px var(--size-4);
   width: 100%;
-  padding: 0 var(--size-4);
 
   @include breakpoint(md) {
+    padding: var(--size-4) 0 100px 0;
     max-width: 358px;
-    padding: 0;
   }
 }

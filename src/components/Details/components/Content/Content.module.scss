@@ -1,0 +1,9 @@
+@use "@/styles/index.scss" as *;
+
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0 var(--size-4) var(--size-4) var(--size-4);
+}

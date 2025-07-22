@@ -2,7 +2,7 @@
 
 .container {
   width: 100%;
-  padding: var(--size-8) var(--size-4) var(--size-5) var(--size-4);
+  padding: var(--size-8) var(--size-4) var(--size-8) var(--size-4);
   user-select: none;
 
   @include breakpoint(md) {
@@ -31,13 +31,13 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  gap: var(--size-2);
+  gap: var(--size-5);
 
   @include breakpoint(md) {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    gap: var(--size-3);
+    gap: 0;
   }
 }
 
@@ -45,6 +45,6 @@
   width: 100%;
 
   @include breakpoint(md) {
-    width: auto;
+    max-width: 358px;
   }
 }

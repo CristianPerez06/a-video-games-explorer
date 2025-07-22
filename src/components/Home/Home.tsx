@@ -8,11 +8,11 @@ const Home = () => {
     <div className={styles["container"]}>
       <Header />
       <div className={styles["first-row"]}>
-        <div className={styles["select-container"]}>
+        <div className={styles["search-container"]}>
           <Search />
         </div>
       </div>
-      {/* <Library /> */}
+      <Library />
     </div>
   );
 };
