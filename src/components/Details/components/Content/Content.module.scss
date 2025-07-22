@@ -3,7 +3,30 @@
 .container {
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding: 0 var(--size-4) var(--size-4) var(--size-4);
+  padding: 80px var(--size-4) var(--size-4) var(--size-4);
+
+  @include breakpoint(md) {
+    padding: 80px 0 var(--size-4) 0;
+  }
+}
+
+.second-row {
+  padding-top: var(--size-6);
+}
+
+.third-row {
+  padding-top: var(--size-6);
+}
+
+.fourth-row {
+  width: 100%;
+  padding-top: var(--size-10);
+}
+
+.fifth-row {
+  width: 100%;
+  padding-top: var(--size-10);
 }
