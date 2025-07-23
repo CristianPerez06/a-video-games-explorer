@@ -9,7 +9,7 @@ const BackButton = () => {
   const router = useRouter();
 
   const handleClick = () => {
-    router.back();
+    router.push("/");
   };
 
   return (

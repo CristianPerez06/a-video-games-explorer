@@ -1,20 +1,27 @@
 @use "@/styles/index.scss" as *;
 
 .container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+
+  background: var(--gray-500);
+  border: 1px solid var(--gray-0);
+  border-radius: var(--size-2);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.image-container {
   height: 152px;
   width: 114px;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
-  padding: var(--size-2);
-  position: relative;
-
-  background: var(--gray-500);
-  border-radius: var(--size-2);
-  overflow: hidden;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
+  background-color: var(--gray-200);
 
   @include breakpoint(md) {
     height: 226px;
@@ -22,17 +29,8 @@
   }
 }
 
-.imageContainer {
-  height: 160px;
-  width: 100%;
-}
-
-.image {
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+.image-cover {
+  border-radius: var(--size-2);
 }
 
 .image-not-found {

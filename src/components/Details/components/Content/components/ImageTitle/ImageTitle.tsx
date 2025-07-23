@@ -1,7 +1,8 @@
-import { toast } from "react-toastify";
+"use client";
+
 import Image from "next/image";
 import { concatenateStrings } from "@/utils";
-import { Button, Toast } from "@/client/components";
+import { Button } from "@/client/components";
 import { useBreakpoint } from "@/client/hooks";
 
 import styles from "./ImageTitle.module.scss";
@@ -10,20 +11,18 @@ interface ImageTitleProps {
   imageSrc?: string;
   gameName: string;
   publishers: string[];
+  isGameCollected?: boolean;
+  onCollectGameClick: () => void;
 }
 
-const ImageTitle = ({ imageSrc, gameName, publishers }: ImageTitleProps) => {
+const ImageTitle = ({
+  imageSrc,
+  gameName,
+  publishers,
+  isGameCollected = false,
+  onCollectGameClick,
+}: ImageTitleProps) => {
   const currentBreakpoint = useBreakpoint();
-
-  const handleCollectGameClick = () => {
-    toast(
-      <Toast
-        variant="success"
-        title="Game collected"
-        description={`${gameName} has been added to your collection`}
-      />
-    );
-  };
 
   const isMobile = currentBreakpoint === "xs" || currentBreakpoint === "sm";
 
@@ -53,12 +52,20 @@ const ImageTitle = ({ imageSrc, gameName, publishers }: ImageTitleProps) => {
             </span>
           )}
           <div className={styles["desktop-button-container"]}>
-            <Button label="Collect game" onClick={handleCollectGameClick} />
+            <Button
+              label={isGameCollected ? "Game collected" : "Collect game"}
+              onClick={onCollectGameClick}
+              variant={isGameCollected ? "secondary" : "primary"}
+            />
           </div>
         </div>
       </div>
       <div className={styles["mobile-button-container"]}>
-        <Button label="Collect game" onClick={handleCollectGameClick} />
+        <Button
+          label={isGameCollected ? "Game collected" : "Collect game"}
+          onClick={onCollectGameClick}
+          variant={isGameCollected ? "secondary" : "primary"}
+        />
       </div>
     </div>
   );

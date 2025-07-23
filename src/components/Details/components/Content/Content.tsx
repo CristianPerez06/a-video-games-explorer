@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { useGamesStore } from "@/providers";
 import { Spinner, Toast } from "@/client/components";
 import { mapGameToGameDetails } from "@/utils";
 import { GameDetails } from "@/types";
@@ -16,6 +17,7 @@ interface ContentProps {
 const Content = ({ gameId }: ContentProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [game, setGame] = useState<GameDetails>();
+  const { games, addGame, removeGame } = useGamesStore((state) => state);
 
   const fetchGameDetails = useCallback(async (id: string) => {
     try {
@@ -56,6 +58,35 @@ const Content = ({ gameId }: ContentProps) => {
     fetchGameDetails(gameId);
   }, [fetchGameDetails, gameId]);
 
+  const handleCollectGameClick = () => {
+    if (!game) return;
+
+    const savedGame = {
+      id: game.id,
+      imageSrc: game.imageSrc,
+      releaseDate: game.releaseDate,
+      addedAt: new Date(),
+    };
+
+    addGame(savedGame);
+
+    toast(
+      <Toast
+        variant="success"
+        title="Game collected"
+        description={`${game.name} has been added to your collection`}
+      />
+    );
+  };
+
+  const handleRemoveGameClick = () => {
+    if (!game) return;
+
+    removeGame(game.id);
+  };
+
+  const isGameCollected = games.some((game) => game.id === gameId);
+
   return (
     <div className={styles["container"]}>
       {isLoading && (
@@ -69,6 +100,14 @@ const Content = ({ gameId }: ContentProps) => {
             imageSrc={game.imageSrc}
             gameName={game.name}
             publishers={game.publishers.map((publisher) => publisher.name)}
+            isGameCollected={isGameCollected}
+            onCollectGameClick={() => {
+              if (isGameCollected) {
+                handleRemoveGameClick();
+              } else {
+                handleCollectGameClick();
+              }
+            }}
           />
           <div className={styles["second-row"]}>
             <Chips

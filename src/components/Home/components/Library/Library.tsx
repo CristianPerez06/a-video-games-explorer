@@ -6,6 +6,7 @@ import cn from "classnames";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { toast } from "react-toastify";
 import LibraryImage from "@public/images/games-library.svg";
+import { useGamesStore } from "@/providers";
 import { useIntersectionObserver } from "@/client/hooks";
 import { addAddedAtDates, mapGamesToSavedGames, sortGames } from "@/utils";
 import { SavedGame } from "@/types";
@@ -17,15 +18,16 @@ import styles from "./Library.module.scss";
 
 const Library = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [games, setGames] = useState<SavedGame[]>([]);
 
   const router = useRouter();
+  const { games, addGames, setGames, removeGame } = useGamesStore(
+    (state) => state
+  );
   const sortButtonsRef = useRef<HTMLDivElement>(null);
   const isSortButtonsVisible = useIntersectionObserver(sortButtonsRef);
 
-  const fetchGames = useCallback(async () => {
+  const fetchGames = useCallback(async (): Promise<SavedGame[]> => {
     try {
-      setIsLoading(true);
       const response = await fetch("/api/games/home");
 
       if (!response.ok) {
@@ -35,7 +37,7 @@ const Library = () => {
       const data = await response.json();
       let savedGames = mapGamesToSavedGames(data.games);
       savedGames = addAddedAtDates(savedGames);
-      setGames(savedGames);
+      return savedGames;
     } catch (error) {
       console.error("Error fetching games:", error);
       toast(
@@ -45,9 +47,7 @@ const Library = () => {
           description={`Failed to load games. Please try again.`}
         />
       );
-      setGames([]);
-    } finally {
-      setIsLoading(false);
+      return [];
     }
   }, []);
 
@@ -61,12 +61,24 @@ const Library = () => {
   };
 
   const handleDeleteClick = (gameId: string) => {
-    // onDeleteGame(gameId); // TODO: Implement this
+    removeGame(gameId);
   };
 
   useEffect(() => {
-    fetchGames();
-  }, [fetchGames]);
+    // If games are already in the store, don't fetch them again
+    if (games.length > 0) {
+      setIsLoading(false);
+      return;
+    }
+
+    // Fetch games from the API
+    const getMockedSavedGames = async () => {
+      const mockedSavedGames = await fetchGames();
+      addGames(mockedSavedGames);
+      setIsLoading(false);
+    };
+    getMockedSavedGames();
+  }, [addGames, fetchGames, games]);
 
   return (
     <div className={styles["container"]}>

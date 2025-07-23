@@ -1,14 +1,21 @@
 "use client";
 
+import cn from "classnames";
 import styles from "./Button.module.scss";
 
 export interface ButtonProps {
   label: string;
   onClick?: () => void;
   isDisabled?: boolean;
+  variant?: "primary" | "secondary";
 }
 
-const Button = ({ label, isDisabled = false, onClick }: ButtonProps) => {
+const Button = ({
+  label,
+  isDisabled = false,
+  variant = "primary",
+  onClick,
+}: ButtonProps) => {
   const handleClick = () => {
     onClick?.();
   };
@@ -16,7 +23,7 @@ const Button = ({ label, isDisabled = false, onClick }: ButtonProps) => {
   return (
     <button
       type="button"
-      className={styles["container"]}
+      className={cn(styles["container"], styles[variant])}
       disabled={isDisabled}
       onClick={handleClick}
     >

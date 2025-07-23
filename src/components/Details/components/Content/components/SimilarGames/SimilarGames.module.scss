@@ -49,6 +49,7 @@
   justify-content: center;
   background-color: var(--gray-200);
   border-radius: var(--size-3);
+  cursor: pointer;
 
   @include breakpoint(md) {
     width: 170px;
