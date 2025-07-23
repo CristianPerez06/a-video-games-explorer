@@ -16,9 +16,9 @@ const Toast = ({ variant, title, description }: ToastProps) => {
     <div className={cn(styles["container"], styles[variant])}>
       <div className={styles["header"]}>
         <Icon className={styles["icon"]} />
-        <span className={"h2"}>{title}</span>
+        <span className={styles["h2"]}>{title}</span>
       </div>
-      {description && <div className={"h4"}>{description}</div>}
+      {description && <div className={styles["h4"]}>{description}</div>}
     </div>
   );
 };

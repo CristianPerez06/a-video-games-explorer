@@ -13,3 +13,50 @@
     @content;
   }
 }
+
+@mixin h1() {
+  font-family: var(--font-default);
+  font-weight: 600;
+  font-size: 24px;
+  letter-spacing: 0;
+  background: var(--text-color-h1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@mixin h2() {
+  font-family: var(--font-default);
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 0;
+  color: #000000;
+}
+
+@mixin h3() {
+  font-family: var(--font-default);
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0;
+  color: #775c90;
+}
+
+@mixin h4() {
+  font-family: var(--font-default);
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0;
+  color: #666666;
+
+  @media (min-width: 768px) {
+    font-size: 16px;
+  }
+}
+
+@mixin h5() {
+  font-family: var(--font-default);
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0;
+  color: #666666;
+}

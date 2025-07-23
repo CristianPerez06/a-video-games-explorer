@@ -1,11 +1,12 @@
 "use client";
 
 import { useState, useCallback, useRef } from "react";
-import { fromUnixTime } from "date-fns";
-import { Select, Toast } from "@/client/components";
+import { useRouter } from "next/navigation";
+// import { fromUnixTime } from "date-fns";
 import { toast } from "react-toastify";
 import { debounce } from "lodash";
-import { IGDBGame, SavedGame } from "@/types";
+import { Select, Toast } from "@/client/components";
+import { IGDBGame } from "@/types";
 
 import styles from "./Search.module.scss";
 
@@ -18,9 +19,9 @@ type SelectItem = {
 };
 
 const Search = () => {
-  const [searchItemResults, setSearchItemResults] = useState<SelectItem[]>([]);
-  const [searchGameResults, setSearchGameResults] = useState<IGDBGame[]>([]);
+  const router = useRouter();
 
+  const [searchItemResults, setSearchItemResults] = useState<SelectItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const mapGamesToSelectItems = useCallback(
@@ -77,31 +78,13 @@ const Search = () => {
   const handleGameSelected = (id: string) => {
     const gameId = Number(id);
 
-    const selectedGameData = searchGameResults.find(
-      (game) => game.id === gameId
-    );
-
-    const savedGame: SavedGame = {
-      id: selectedGameData!.id.toString(),
-      imageSrc: selectedGameData!.cover?.image_id
-        ? `https://images.igdb.com/igdb/image/upload/t_cover_big/${
-            selectedGameData!.cover.image_id
-          }.jpg`
-        : undefined,
-      releaseDate: selectedGameData!.first_release_date
-        ? new Date(fromUnixTime(selectedGameData!.first_release_date))
-        : undefined,
-      addedAt: new Date(),
-    };
-
-    // onGameSelected(savedGame); // TODO: Implement this
+    router.push(`/details/${gameId}`);
   };
 
   const handleSearchRef = useRef(
     debounce(async (query: string) => {
       if (!query || query.trim().length < MIN_QUERY_LENGTH) {
         setSearchItemResults([]);
-        setSearchGameResults([]);
         return;
       }
 
@@ -114,7 +97,6 @@ const Search = () => {
         const selectItems = mapGamesToSelectItems(games);
 
         setSearchItemResults(selectItems);
-        setSearchGameResults(games);
       } catch (error) {
         console.error("Search failed:", error);
         toast(
@@ -125,7 +107,6 @@ const Search = () => {
           />
         );
         setSearchItemResults([]);
-        setSearchGameResults([]);
       } finally {
         setIsLoading(false);
       }

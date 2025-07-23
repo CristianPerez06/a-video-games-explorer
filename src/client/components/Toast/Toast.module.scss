@@ -1,3 +1,5 @@
+@use "@/styles/index.scss" as *;
+
 .container {
   width: 358px;
   display: flex;
@@ -20,8 +22,16 @@
 }
 
 .icon {
-  width: 13px;
-  height: 13px;
+  width: var(--size-4);
+  height: var(--size-4);
+}
+
+.h2 {
+  @include h2();
+}
+
+.h4 {
+  @include h4();
 }
 
 /* Variant-specific styles */

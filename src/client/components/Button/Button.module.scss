@@ -19,6 +19,10 @@
 
   user-select: none;
 
+  &:hover {
+    background: var(--violet-600);
+  }
+
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
