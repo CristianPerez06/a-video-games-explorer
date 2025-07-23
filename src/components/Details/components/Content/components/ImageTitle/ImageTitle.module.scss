@@ -15,8 +15,30 @@
   gap: var(--size-2);
 }
 
-.game-cover-image {
+.image-container {
+  width: 83px;
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: var(--gray-200);
+  border-radius: var(--size-3);
+
+  @include breakpoint(md) {
+    width: 270px;
+    height: 326px;
+  }
+}
+
+.image-not-found {
+  font-family: var(--font-default);
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--gray-1000);
+  text-align: center;
+}
+
+.image-cover {
   border-radius: var(--size-3);
 }
 
@@ -54,6 +76,14 @@
   }
 }
 
+.desktop-button-container {
+  display: none;
+
+  @include breakpoint(md) {
+    display: block;
+  }
+}
+
 .mobile-button-container {
   width: 100%;
   display: flex;
@@ -63,5 +93,9 @@
   > button {
     width: 100%;
     max-width: 100%;
+  }
+
+  @include breakpoint(md) {
+    display: none;
   }
 }

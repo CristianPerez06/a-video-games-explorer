@@ -1,135 +1,96 @@
 import { NextResponse } from "next/server";
-import { SavedGame } from "@/types";
+import { IGDBGame } from "@/types";
 
-// Mock games data for the library
-const mockGames: SavedGame[] = [
-  {
-    id: "1",
-    imageSrc:
-      "https://images.igdb.com/igdb/image/upload/t_cover_big/co3p2d.jpg",
-    releaseDate: new Date("2020-12-10"),
-    addedAt: new Date("2024-01-15"),
-  },
-  {
-    id: "2",
-    imageSrc:
-      "https://images.igdb.com/igdb/image/upload/t_cover_big/co1wyy.jpg",
-    releaseDate: new Date("2018-10-26"),
-    addedAt: new Date("2024-01-10"),
-  },
-  {
-    id: "3",
-    imageSrc:
-      "https://images.igdb.com/igdb/image/upload/t_cover_big/co2lbd.jpg",
-    releaseDate: new Date("2020-03-20"),
-    addedAt: new Date("2024-01-08"),
-  },
-  {
-    id: "4",
-    imageSrc:
-      "https://images.igdb.com/igdb/image/upload/t_cover_big/co1r7f.jpg",
-    releaseDate: new Date("2016-05-10"),
-    addedAt: new Date("2024-01-05"),
-  },
-  {
-    id: "5",
-    imageSrc:
-      "https://images.igdb.com/igdb/image/upload/t_cover_big/co3p54.jpg",
-    releaseDate: new Date("2023-05-12"),
-    addedAt: new Date("2024-01-03"),
-  },
-  {
-    id: "6",
-    imageSrc:
-      "https://images.igdb.com/igdb/image/upload/t_cover_big/co2lc1.jpg",
-    releaseDate: new Date("2021-11-05"),
-    addedAt: new Date("2024-01-01"),
-  },
-  {
-    id: "7",
-    imageSrc:
-      "https://images.igdb.com/igdb/image/upload/t_cover_big/co1r81.jpg",
-    releaseDate: new Date("2017-03-03"),
-    addedAt: new Date("2023-12-28"),
-  },
-  {
-    id: "8",
-    imageSrc:
-      "https://images.igdb.com/igdb/image/upload/t_cover_big/co3p2g.jpg",
-    releaseDate: new Date("2022-02-25"),
-    addedAt: new Date("2023-12-25"),
-  },
-  {
-    id: "9",
-    imageSrc:
-      "https://images.igdb.com/igdb/image/upload/t_cover_big/co1ycs.jpg",
-    releaseDate: new Date("2019-04-23"),
-    addedAt: new Date("2023-12-20"),
-  },
-  {
-    id: "10",
-    imageSrc:
-      "https://images.igdb.com/igdb/image/upload/t_cover_big/co2lbg.jpg",
-    releaseDate: new Date("2015-09-01"),
-    addedAt: new Date("2023-12-15"),
-  },
-  {
-    id: "11",
-    imageSrc:
-      "https://images.igdb.com/igdb/image/upload/t_cover_big/co3p3v.jpg",
-    releaseDate: new Date("2021-06-11"),
-    addedAt: new Date("2023-12-10"),
-  },
-  {
-    id: "12",
-    imageSrc:
-      "https://images.igdb.com/igdb/image/upload/t_cover_big/co1r7c.jpg",
-    releaseDate: new Date("2018-09-07"),
-    addedAt: new Date("2023-12-05"),
-  },
-  {
-    id: "13",
-    imageSrc:
-      "https://images.igdb.com/igdb/image/upload/t_cover_big/co2lc4.jpg",
-    releaseDate: new Date("2020-07-17"),
-    addedAt: new Date("2023-12-01"),
-  },
-  {
-    id: "14",
-    imageSrc:
-      "https://images.igdb.com/igdb/image/upload/t_cover_big/co3p51.jpg",
-    releaseDate: new Date("2022-08-29"),
-    addedAt: new Date("2023-11-28"),
-  },
-  {
-    id: "15",
-    imageSrc:
-      "https://images.igdb.com/igdb/image/upload/t_cover_big/co1yep.jpg",
-    releaseDate: new Date("2019-11-08"),
-    addedAt: new Date("2023-11-25"),
-  },
-  {
-    id: "16",
-    imageSrc:
-      "https://images.igdb.com/igdb/image/upload/t_cover_big/co2lbj.jpg",
-    releaseDate: new Date("2017-10-27"),
-    addedAt: new Date("2023-11-20"),
-  },
-];
+// TODO -  Move to .env
+const clientId = "qg0heh2xjyvud06ubvl5sxc8bkbzo1";
+const clientSecret = "ms9gjn8v9tpklffkbfkh8kbjvt2op1";
+
+// Cache for access token
+let accessToken: string | null = null;
+let tokenExpiry: number = 0;
+
+const getAccessToken = async (): Promise<string> => {
+  // Check if we have a valid token
+  if (accessToken && Date.now() < tokenExpiry) {
+    return accessToken;
+  }
+
+  if (!clientId || !clientSecret) {
+    throw new Error("IGDB credentials not configured");
+  }
+
+  try {
+    const response = await fetch("https://id.twitch.tv/oauth2/token", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: new URLSearchParams({
+        client_id: clientId,
+        client_secret: clientSecret,
+        grant_type: "client_credentials",
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Authentication failed: ${response.status}`);
+    }
+
+    const data = await response.json();
+    accessToken = data.access_token;
+    // Set expiry time (subtract 5 minutes for safety)
+    tokenExpiry = Date.now() + (data.expires_in - 300) * 1000;
+
+    return data.access_token;
+  } catch (error) {
+    console.error("Error getting access token:", error);
+    throw new Error("Failed to authenticate with IGDB");
+  }
+};
 
 export const GET = async () => {
   try {
-    // Simulate a small delay to mimic real API behavior
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    if (!clientId) {
+      return NextResponse.json(
+        { error: "IGDB Client ID not configured" },
+        { status: 500 }
+      );
+    }
 
-    return NextResponse.json({
-      games: mockGames,
-      total: mockGames.length,
+    const token = await getAccessToken();
+
+    const response = await fetch("https://api.igdb.com/v4/games", {
+      method: "POST",
+      headers: {
+        "Client-ID": clientId,
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: `
+        fields 
+        id,
+        name,
+        first_release_date,
+        cover.image_id,
+        rating,
+        genres.name,
+        summary,
+        platforms.name;
+      sort rating desc;
+      limit 10;`,
     });
+
+    if (!response.ok) {
+      throw new Error(`IGDB API error: ${response.status}`);
+    }
+
+    const games: IGDBGame[] = await response.json();
+
+    return NextResponse.json({ games });
   } catch (error) {
-    console.error("Home API error:", error);
+    console.error("Search API error:", error);
     return NextResponse.json(
-      { error: "Failed to fetch home games" },
+      { error: "Failed to search games" },
       { status: 500 }
     );
   }

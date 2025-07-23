@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import Image from "next/image";
 import cn from "classnames";
@@ -7,7 +9,7 @@ import { useBreakpoint } from "@/client/hooks";
 import styles from "./ImageCarousel.module.scss";
 
 interface ImageCarouselProps {
-  images: { id: number; src?: string; alt?: string }[];
+  images: { id: string; src?: string }[];
 }
 
 const ImageCarousel = ({ images = [] }: ImageCarouselProps) => {
@@ -57,10 +59,10 @@ const ImageCarousel = ({ images = [] }: ImageCarouselProps) => {
               )}
               {image.src && (
                 <Image
-                  className={styles["image"]}
                   src={image.src}
-                  alt={image.alt || `Game image: ${image.id}`}
-                  fill
+                  alt={`Game image: ${image.id}`}
+                  width={isMobile ? 84 : 133}
+                  height={isMobile ? 84 : 133}
                 />
               )}
             </div>

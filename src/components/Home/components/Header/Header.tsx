@@ -8,7 +8,7 @@ const Header = () => {
       <div className={styles["content"]}>
         <div className={styles["row"]}>
           <GameHavenIcon />
-          <h1 className={"h1"}>Gaming Haven Z</h1>
+          <h1 className={styles["h1"]}>Gaming Haven Z</h1>
         </div>
       </div>
     </div>

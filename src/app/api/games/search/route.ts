@@ -48,8 +48,6 @@ const getAccessToken = async (): Promise<string> => {
   }
 };
 
-// No mapping needed since API returns IGDBGame structure directly
-
 export const GET = async (request: NextRequest) => {
   try {
     const { searchParams } = new URL(request.url);
@@ -75,7 +73,17 @@ export const GET = async (request: NextRequest) => {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-      body: `search "${query}"; fields id,name,cover.image_id, first_release_date;`,
+      body: `
+        search "${query}";
+        fields id,
+        name,
+        cover.image_id,
+        first_release_date,
+        rating,
+        genres.name,
+        summary,
+        platforms.name;
+      `,
     });
 
     if (!response.ok) {

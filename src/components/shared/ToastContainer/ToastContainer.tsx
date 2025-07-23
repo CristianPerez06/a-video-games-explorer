@@ -7,7 +7,7 @@ import "./ToastContainer.scss";
 const ToastContainer = () => {
   return (
     <ToastContainerComponent
-      position="top-center"
+      position="bottom-center"
       autoClose={5000}
       closeButton={false}
       hideProgressBar={true}

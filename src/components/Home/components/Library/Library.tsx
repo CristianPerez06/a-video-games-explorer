@@ -1,110 +1,31 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import cn from "classnames";
 import { useState, useEffect, useRef, useCallback } from "react";
+import { toast } from "react-toastify";
 import LibraryImage from "@public/images/games-library.svg";
 import { useIntersectionObserver } from "@/client/hooks";
-import { sortGames } from "@/utils";
+import { addAddedAtDates, mapGamesToSavedGames, sortGames } from "@/utils";
 import { SavedGame } from "@/types";
-import { Spinner } from "@/client/components";
+import { Spinner, Toast } from "@/client/components";
 import Grid from "@/components/shared/Grid";
 import { SortButtons } from "./components";
 
 import styles from "./Library.module.scss";
 
-const savedGames: SavedGame[] = [
-  {
-    id: "1",
-    releaseDate: new Date(),
-    addedAt: new Date(),
-  },
-  {
-    id: "2",
-    releaseDate: new Date(),
-    addedAt: new Date(),
-  },
-  {
-    id: "3",
-    releaseDate: new Date(),
-    addedAt: new Date(),
-  },
-  {
-    id: "4",
-    releaseDate: new Date(),
-    addedAt: new Date(),
-  },
-  {
-    id: "5",
-    releaseDate: new Date(),
-    addedAt: new Date(),
-  },
-  {
-    id: "6",
-    releaseDate: new Date(),
-    addedAt: new Date(),
-  },
-  {
-    id: "7",
-    releaseDate: new Date(),
-    addedAt: new Date(),
-  },
-  {
-    id: "8",
-    releaseDate: new Date(),
-    addedAt: new Date(),
-  },
-  {
-    id: "9",
-    releaseDate: new Date(),
-    addedAt: new Date(),
-  },
-  {
-    id: "10",
-    releaseDate: new Date(),
-    addedAt: new Date(),
-  },
-  {
-    id: "11",
-    releaseDate: new Date(),
-    addedAt: new Date(),
-  },
-  {
-    id: "12",
-    releaseDate: new Date(),
-    addedAt: new Date(),
-  },
-  {
-    id: "13",
-    releaseDate: new Date(),
-    addedAt: new Date(),
-  },
-  {
-    id: "15",
-    releaseDate: new Date(),
-    addedAt: new Date(),
-  },
-  {
-    id: "16",
-    releaseDate: new Date(),
-    addedAt: new Date(),
-  },
-];
-
 const Library = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [games, setGames] = useState<SavedGame[]>([]);
-  const [currentSortType, setCurrentSortType] = useState<string>("last-added");
 
+  const router = useRouter();
   const sortButtonsRef = useRef<HTMLDivElement>(null);
   const isSortButtonsVisible = useIntersectionObserver(sortButtonsRef);
 
   const fetchGames = useCallback(async () => {
     try {
       setIsLoading(true);
-      setError(null);
-
       const response = await fetch("/api/games/home");
 
       if (!response.ok) {
@@ -112,25 +33,31 @@ const Library = () => {
       }
 
       const data = await response.json();
-      const sortedGames = sortGames(data.games, currentSortType);
-      setGames(sortedGames);
+      let savedGames = mapGamesToSavedGames(data.games);
+      savedGames = addAddedAtDates(savedGames);
+      setGames(savedGames);
     } catch (error) {
       console.error("Error fetching games:", error);
-      setError("Failed to load games. Please try again.");
+      toast(
+        <Toast
+          variant="error"
+          title="Error loading games"
+          description={`Failed to load games. Please try again.`}
+        />
+      );
       setGames([]);
     } finally {
       setIsLoading(false);
     }
-  }, [currentSortType]);
+  }, []);
 
   const handleSortClick = (sortId: string) => {
-    setCurrentSortType(sortId);
     const sortedGames = sortGames(games, sortId);
     setGames(sortedGames);
   };
 
   const handleCardClick = (gameId: string) => {
-    console.log("Card clicked - id: ", gameId);
+    router.push(`/details/${gameId}`);
   };
 
   const handleDeleteClick = (gameId: string) => {
