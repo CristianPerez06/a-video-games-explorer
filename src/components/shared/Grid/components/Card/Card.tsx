@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import { Trash } from "lucide-react";
+import { useBreakpoint } from "@/client/hooks";
 
 import styles from "./Card.module.scss";
 
@@ -11,6 +14,9 @@ interface CardProps {
 }
 
 const Card = ({ id, imageSrc, onClick, onDeleteClick }: CardProps) => {
+  const currentBreakpoint = useBreakpoint();
+  const isMobile = currentBreakpoint === "xs" || currentBreakpoint === "sm";
+
   return (
     <div className={styles["container"]}>
       <div className={styles["image-container"]} onClick={() => onClick(id)}>
@@ -19,10 +25,11 @@ const Card = ({ id, imageSrc, onClick, onDeleteClick }: CardProps) => {
         )}
         {imageSrc && (
           <Image
-            className={styles["image"]}
+            className={styles["image-cover"]}
             src={imageSrc}
             alt="Game image"
-            fill
+            width={isMobile ? 114 : 170}
+            height={isMobile ? 152 : 226}
           />
         )}
       </div>

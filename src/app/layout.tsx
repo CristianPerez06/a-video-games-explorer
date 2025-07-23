@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import fontInter from "@/fonts";
 import { ToastContainer } from "@/components/shared";
+import { GamesStoreProvider } from "@/providers";
 
 import "./globals.scss";
 
@@ -18,8 +19,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={fontInter.variable}>
-        <ToastContainer />
-        {children}
+        <GamesStoreProvider>
+          <ToastContainer />
+          {children}
+        </GamesStoreProvider>
       </body>
     </html>
   );

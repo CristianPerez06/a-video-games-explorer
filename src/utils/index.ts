@@ -35,20 +35,23 @@ export const sortGames = (
   });
 };
 
-export const mapGamesToSavedGames = (games: IGDBGame[]): SavedGame[] => {
-  return games.map((game) => {
-    return {
-      id: game.id.toString(),
-      imageSrc: game.cover?.image_id
-        ? `https://images.igdb.com/igdb/image/upload/t_cover_big/${game.cover.image_id}.jpg`
-        : undefined,
-      releaseDate: game.first_release_date
-        ? new Date(fromUnixTime(game.first_release_date))
-        : new Date(1970, 0, 1),
-      addedAt: new Date(),
-    };
-  });
+export const mapGameToSavedGame = (game: IGDBGame): SavedGame => {
+  return {
+    id: game.id.toString(),
+    imageSrc: game.cover?.image_id
+      ? `https://images.igdb.com/igdb/image/upload/t_cover_big/${game.cover.image_id}.jpg`
+      : undefined,
+    releaseDate: game.first_release_date
+      ? new Date(fromUnixTime(game.first_release_date))
+      : new Date(1970, 0, 1),
+    addedAt: new Date(),
+  };
 };
+
+export const mapGamesToSavedGames = (games: IGDBGame[]): SavedGame[] => {
+  return games.map(mapGameToSavedGame);
+};
+
 // Used to mock the addedAt date for testing
 export const addAddedAtDates = (games: SavedGame[]): SavedGame[] => {
   const startDate = new Date(2025, 0, 1); // Jan 1, 2025
@@ -74,26 +77,30 @@ export const mapGameToGameDetails = (game: IGDBGame): GameDetails => {
     releaseDate: game.first_release_date
       ? new Date(fromUnixTime(game.first_release_date))
       : undefined,
-    publishers: game.involved_companies?.map((company) => ({
-      name: company.company.name,
-    })),
+    publishers:
+      game.involved_companies?.map((company) => ({
+        name: company.company.name,
+      })) || [],
     rating: game.rating,
-    genre: game.genres?.map((genre) => ({
-      name: genre.name,
-    })),
+    genre:
+      game.genres?.map((genre) => ({
+        name: genre.name,
+      })) || [],
     summary: game.summary,
-    platforms: game.platforms?.map((platform) => platform.name),
-    media: game.screenshots?.map((screenshot) => ({
-      imageId: screenshot.image_id,
-      imageSrc: `https://images.igdb.com/igdb/image/upload/t_thumb/${screenshot.image_id}.jpg`,
-    })),
-    similarGames: game.similar_games?.map((similarGame) => ({
-      id: similarGame.id.toString(),
-      name: similarGame.name,
-      imageSrc: similarGame.cover?.image_id
-        ? `https://images.igdb.com/igdb/image/upload/t_cover_big/${similarGame.cover.image_id}.jpg`
-        : undefined,
-    })),
+    platforms: game.platforms?.map((platform) => platform.name) || [],
+    media:
+      game.screenshots?.map((screenshot) => ({
+        imageId: screenshot.image_id,
+        imageSrc: `https://images.igdb.com/igdb/image/upload/t_thumb/${screenshot.image_id}.jpg`,
+      })) || [],
+    similarGames:
+      game.similar_games?.map((similarGame) => ({
+        id: similarGame.id.toString(),
+        name: similarGame.name,
+        imageSrc: similarGame.cover?.image_id
+          ? `https://images.igdb.com/igdb/image/upload/t_cover_big/${similarGame.cover.image_id}.jpg`
+          : undefined,
+      })) || [],
   };
 };
 
