@@ -77,7 +77,8 @@ export const GET = async () => {
         rating,
         genres.name,
         summary,
-        platforms.name;
+        platforms.name,
+        slug;
       sort rating desc;
       limit 10;`,
     });

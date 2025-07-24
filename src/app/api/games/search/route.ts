@@ -84,7 +84,8 @@ export const GET = async (request: NextRequest) => {
         rating,
         genres.name,
         summary,
-        platforms.name;
+        platforms.name,
+        slug;
       `,
     });
 

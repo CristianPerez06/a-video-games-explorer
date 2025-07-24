@@ -18,6 +18,7 @@ import styles from "./Library.module.scss";
 
 const Library = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [activeSort, setActiveSort] = useState("last-added");
 
   const router = useRouter();
   const { games, addGames, setGames, removeGame } = useGamesStore(
@@ -60,12 +61,13 @@ const Library = () => {
   }, []);
 
   const handleSortClick = (sortId: string) => {
-    const sortedGames = sortGames(games, sortId);
-    setGames(sortedGames);
+    setActiveSort(sortId);
+    // const sortedGames = sortGames(games, sortId);
+    // setGames(sortedGames);
   };
 
-  const handleCardClick = (gameId: string) => {
-    router.push(`/details/${gameId}`);
+  const handleCardClick = (slug: string) => {
+    router.push(`/details/${slug}`);
   };
 
   const handleDeleteClick = (gameId: string, gameName: string) => {
@@ -157,7 +159,7 @@ const Library = () => {
         {/* Grid list */}
         {!isLoading && (
           <Grid
-            games={games}
+            games={sortGames(games, activeSort)}
             onCardClick={handleCardClick}
             onDeleteClick={handleDeleteClick}
           />

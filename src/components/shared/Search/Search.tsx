@@ -29,7 +29,7 @@ const Search = () => {
     (games: IGDBGame[]): SelectItem[] => {
       return games.map((game) => {
         return {
-          id: game.id.toString(),
+          id: game.slug,
           name: game.name,
           image: game.cover?.image_id
             ? `https://images.igdb.com/igdb/image/upload/t_thumb/${game.cover.image_id}.jpg`
@@ -76,10 +76,8 @@ const Search = () => {
     []
   );
 
-  const handleGameSelected = (id: string) => {
-    const gameId = Number(id);
-
-    router.push(`/details/${gameId}`);
+  const handleGameSelected = (slug: string) => {
+    router.push(`/details/${slug}`);
   };
 
   const handleSearchRef = useRef(
