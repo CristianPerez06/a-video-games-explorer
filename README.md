@@ -93,4 +93,7 @@ Gaming Haven Z is built using the following technologies:
 
 ## Notes for the Reviewer
 
-The app isn’t currently connected to a backend to save data and uses Zustand to manage state instead. On first load, the Home page fetches the top 10 rated games from IGDB and stores them in state to mimic saved games, avoiding an empty state. After that, you can add or remove games from the Saved Games list. If you remove all games, the empty state will show.
+- The app isn’t currently connected to a backend to save data and uses Zustand to manage state instead. On first load, the Home page fetches the top 10 rated games from IGDB and stores them in state to mimic saved games, avoiding an empty state. After that, you can add or remove games from the Saved Games list. If you remove all games, the empty state will show.
+- Regarding the following requirement:
+  > The logo should be visible and clickable, returning the user to the home screen.
+- The designs for the Details page show a Back Button instead of a Logo. A Logo would be clearer for users, as it’s commonly understood to link to the Home page. A Back Button, however, takes users to the previous page, which isn’t always the Home page. For example, if a user clicks a game in the Similar Games section, they’re taken to that game’s Details page, and the Back Button would return them to the previous Details page. Just wanted to point out that the designs don’t align with the requirement.
