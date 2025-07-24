@@ -8,10 +8,14 @@ interface DetailsProps {
 
 const Details = ({ slug }: DetailsProps) => {
   return (
-    <div className={styles["container"]}>
+    <article
+      className={styles["container"]}
+      role="article"
+      aria-label="Game details content"
+    >
       <Header />
       <Content gameSlug={slug} />
-    </div>
+    </article>
   );
 };
 

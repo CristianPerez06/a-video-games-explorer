@@ -8,6 +8,7 @@ export interface ButtonProps {
   onClick?: () => void;
   isDisabled?: boolean;
   variant?: "primary" | "secondary";
+  ariaLabel?: string;
 }
 
 const Button = ({
@@ -15,9 +16,17 @@ const Button = ({
   isDisabled = false,
   variant = "primary",
   onClick,
+  ariaLabel,
 }: ButtonProps) => {
   const handleClick = () => {
     onClick?.();
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      handleClick();
+    }
   };
 
   return (
@@ -26,6 +35,10 @@ const Button = ({
       className={cn(styles["container"], styles[variant])}
       disabled={isDisabled}
       onClick={handleClick}
+      onKeyDown={handleKeyDown}
+      aria-label={ariaLabel || `${label} button`}
+      role="button"
+      aria-disabled={isDisabled}
     >
       {label}
     </button>

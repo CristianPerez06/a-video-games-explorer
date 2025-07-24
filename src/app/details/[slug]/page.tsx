@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { Details as DetailsContent } from "@/components";
 
 import styles from "./details.module.scss";
@@ -8,13 +9,29 @@ interface DetailsPageProps {
   }>;
 }
 
+export async function generateMetadata({
+  params,
+}: DetailsPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const title = slug.split("-").join(" ");
+
+  return {
+    title: `${title} - Game Details | Game Haven`,
+    description: `Details and information about ${title}`,
+  };
+}
+
 const Details = async ({ params }: DetailsPageProps) => {
   const { slug } = await params;
 
   return (
-    <div className={styles["container"]}>
+    <main
+      className={styles["container"]}
+      role="main"
+      aria-label="Game details page"
+    >
       <DetailsContent slug={slug} />
-    </div>
+    </main>
   );
 };
 

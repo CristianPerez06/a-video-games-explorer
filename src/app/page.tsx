@@ -1,11 +1,22 @@
 import { Home as HomeContent } from "@/components";
-
+import { Metadata } from "next";
 import styles from "./page.module.scss";
 
-export default function Home() {
+export const metadata: Metadata = {
+  title: "Game Haven - Your Digital Game Library",
+  description: "Browse and discover your favorite games in our digital library",
+};
+
+const Home = () => {
   return (
-    <div className={styles["container"]}>
+    <main
+      className={styles["container"]}
+      role="main"
+      aria-label="Game library home page"
+    >
       <HomeContent />
-    </div>
+    </main>
   );
-}
+};
+
+export default Home;
