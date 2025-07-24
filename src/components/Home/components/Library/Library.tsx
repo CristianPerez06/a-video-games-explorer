@@ -31,7 +31,15 @@ const Library = () => {
       const response = await fetch("/api/games/home");
 
       if (!response.ok) {
-        throw new Error("Failed to fetch games");
+        console.error("Error fetching games:");
+        toast(
+          <Toast
+            variant="error"
+            title="Error loading games"
+            description={`Failed to load games. Please try again.`}
+          />
+        );
+        return [];
       }
 
       const data = await response.json();
@@ -74,7 +82,11 @@ const Library = () => {
     // Fetch games from the API
     const getMockedSavedGames = async () => {
       const mockedSavedGames = await fetchGames();
-      addGames(mockedSavedGames);
+      // Avoid updating the store (which would trigger this effect again)
+      // when no games were fetched (e.g., API request failed).
+      if (mockedSavedGames.length > 0) {
+        addGames(mockedSavedGames);
+      }
       setIsLoading(false);
     };
     getMockedSavedGames();
