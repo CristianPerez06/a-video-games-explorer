@@ -32,7 +32,9 @@ const Grid = ({
                   gameName={item.name}
                   imageSrc={item.imageSrc}
                   onClick={() => onCardClick(item.slug)}
-                  onDeleteClick={() => onDeleteClick?.(item.id, item.name)}
+                  {...(onDeleteClick && {
+                    onDeleteClick: () => onDeleteClick(item.id, item.name),
+                  })}
                 />
               </div>
             );
