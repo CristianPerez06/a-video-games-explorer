@@ -18,13 +18,24 @@ const Toast = ({ variant, title, description }: ToastProps) => {
       className={cn(styles["container"], styles[variant])}
       role={isError ? "alert" : "status"}
       aria-live={isError ? "assertive" : "polite"}
+      data-testid="toast"
     >
       <div className={styles["header"]}>
-        <Icon className={styles["icon"]} aria-hidden="true" />
-        <h2 className={styles["h2"]}>{title}</h2>
+        <Icon
+          className={styles["icon"]}
+          aria-hidden="true"
+          data-testid="toast-icon"
+        />
+        <h2 className={styles["h2"]} data-testid="toast-title">
+          {title}
+        </h2>
       </div>
       {description && (
-        <div className={styles["h4"]} role="complementary">
+        <div
+          className={styles["h4"]}
+          role="complementary"
+          data-testid="toast-description"
+        >
           {description}
         </div>
       )}

@@ -39,6 +39,7 @@ const Button = ({
       aria-label={ariaLabel || `${label} button`}
       role="button"
       aria-disabled={isDisabled}
+      data-testid="button"
     >
       {label}
     </button>

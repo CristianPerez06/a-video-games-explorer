@@ -21,6 +21,7 @@ const Spinner = ({
       role="status"
       aria-label={ariaLabel}
       aria-live="polite"
+      data-testid="spinner"
     />
   );
 };

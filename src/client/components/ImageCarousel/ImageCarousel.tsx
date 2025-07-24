@@ -61,6 +61,7 @@ const ImageCarousel = ({
       aria-label={ariaLabel}
       onKeyDown={handleKeyDown}
       tabIndex={0}
+      data-testid="carousel-container"
     >
       {/* Left Arrow */}
       <button
@@ -68,12 +69,17 @@ const ImageCarousel = ({
         disabled={currentIndex === 0}
         className={cn(styles["nav-button"], styles["left"])}
         aria-label="Previous images"
+        data-testid="prev-button"
       >
         <ChevronLeft className={styles["nav-button-icon"]} aria-hidden="true" />
       </button>
 
       {/* Thumbnails Container */}
-      <div className={styles["content"]} aria-live="polite">
+      <div
+        className={styles["content"]}
+        aria-live="polite"
+        data-testid="carousel-content"
+      >
         <div className={styles["track"]}>
           {visibleItems.map((image, index) => (
             <div
@@ -83,9 +89,13 @@ const ImageCarousel = ({
               aria-label={`Image ${currentIndex + index + 1} of ${
                 allItems.length
               }`}
+              data-testid={`carousel-item-${index}`}
             >
               {!image.src && (
-                <span className={styles["image-not-found"]}>
+                <span
+                  className={styles["image-not-found"]}
+                  data-testid="image-not-found"
+                >
                   Image not found
                 </span>
               )}
@@ -98,6 +108,7 @@ const ImageCarousel = ({
                   width={isMobile ? 84 : 133}
                   height={isMobile ? 84 : 133}
                   priority={true}
+                  data-testid={`carousel-image-${index}`}
                 />
               )}
             </div>
@@ -111,6 +122,7 @@ const ImageCarousel = ({
         disabled={currentIndex >= maxIndex}
         className={cn(styles["nav-button"], styles["right"])}
         aria-label="Next images"
+        data-testid="next-button"
       >
         <ChevronRight
           className={styles["nav-button-icon"]}

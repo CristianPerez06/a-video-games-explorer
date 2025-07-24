@@ -89,6 +89,7 @@ Gaming Haven Z is built using the following technologies:
 - **Lucide React**: A React component library for building user interfaces with a focus on simplicity, consistency, and ease of use.
 - **Zustand**: A small, fast, and scalable state management library for React applications that simplifies state management and debugging.
 - **Storybook**: A tool for UI component development that allows developers to create and manage UI components in isolation, making it easier to build and maintain user interfaces.
+- **Jest**: A JavaScript testing framework with a focus on simplicity and support for large web applications, used for unit and integration testing.
 
 ## Notes for the Reviewer
 

@@ -101,7 +101,11 @@ const Select = ({
   }, [items, query, isLoading]);
 
   return (
-    <div className={styles["container"]} ref={containerRef}>
+    <div
+      className={styles["container"]}
+      ref={containerRef}
+      data-testid="select-container"
+    >
       <div className={styles["input-container"]}>
         <Search className={styles["search-icon"]} aria-hidden="true" />
         <input
@@ -123,18 +127,23 @@ const Select = ({
           }
           aria-label={ariaLabel}
           aria-busy={isLoading}
+          data-testid="select-input"
         />
         {!isLoading && query.length > 0 && (
           <button
             className={styles["right-icon-container"]}
             onClick={handleClearInput}
             aria-label="Clear search"
+            data-testid="select-clear-button"
           >
             <X className={styles["clear-icon"]} aria-hidden="true" />
           </button>
         )}
         {isLoading && query.length > 0 && (
-          <div className={styles["right-icon-container"]}>
+          <div
+            className={styles["right-icon-container"]}
+            data-testid="select-loading"
+          >
             <Spinner size="sm" />
           </div>
         )}
@@ -147,6 +156,7 @@ const Select = ({
           )}
           role="region"
           aria-live="polite"
+          data-testid="select-dropdown"
         >
           <div className={styles["list-content"]}>
             <ul
@@ -154,6 +164,7 @@ const Select = ({
               ref={listRef}
               className={styles["list"]}
               role="listbox"
+              data-testid="select-list"
             >
               {currentItems.map((item, index) => (
                 <li
@@ -165,6 +176,7 @@ const Select = ({
                   role="option"
                   id={`item-${item.id}`}
                   aria-selected={index === activeIndex}
+                  data-testid={`select-item-${item.id}`}
                 >
                   <div
                     className={styles["list-item-content"]}
@@ -178,7 +190,11 @@ const Select = ({
                 </li>
               ))}
               {currentItems.length === 0 && (
-                <li className={styles["list-item-empty"]} role="status">
+                <li
+                  className={styles["list-item-empty"]}
+                  role="status"
+                  data-testid="select-no-results"
+                >
                   <span className={styles["list-item-empty-text"]}>
                     No results found
                   </span>
