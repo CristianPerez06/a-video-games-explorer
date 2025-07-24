@@ -133,6 +133,7 @@ const Library = () => {
               alt="library"
               width={280}
               height={168}
+              priority={true}
             />
             <div className={styles["empty-library-text"]}>
               <span className={styles["empty-library-title"]}>

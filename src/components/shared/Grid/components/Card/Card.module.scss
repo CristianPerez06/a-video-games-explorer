@@ -22,6 +22,11 @@
   align-items: center;
   justify-content: center;
   background-color: var(--gray-200);
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 
   @include breakpoint(md) {
     height: 226px;

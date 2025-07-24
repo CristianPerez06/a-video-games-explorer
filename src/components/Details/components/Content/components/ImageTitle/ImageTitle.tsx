@@ -40,6 +40,7 @@ const ImageTitle = ({
               alt="Game cover"
               width={isMobile ? 83 : 270}
               height={isMobile ? 110 : 326}
+              priority={true}
             />
           )}
         </div>

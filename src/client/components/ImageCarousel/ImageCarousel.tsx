@@ -63,6 +63,7 @@ const ImageCarousel = ({ images = [] }: ImageCarouselProps) => {
                   alt={`Game image: ${image.id}`}
                   width={isMobile ? 84 : 133}
                   height={isMobile ? 84 : 133}
+                  priority={true}
                 />
               )}
             </div>
