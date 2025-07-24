@@ -151,7 +151,7 @@ const Content = ({ gameSlug }: ContentProps) => {
                   Similar Games
                 </span>
                 <Grid
-                  games={game.similarGames.map((game) => ({
+                  games={game.similarGames.slice(0, 12).map((game) => ({
                     id: game.id,
                     name: game.name,
                     imageSrc: game.imageSrc,

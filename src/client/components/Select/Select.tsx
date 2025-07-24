@@ -21,6 +21,7 @@ interface SelectProps {
   isLoading?: boolean;
   onSearch: (query: string) => void;
   onItemSelected: (item: Item) => void;
+  ariaLabel?: string;
 }
 
 const Select = ({
@@ -28,26 +29,33 @@ const Select = ({
   isLoading = false,
   onSearch,
   onItemSelected,
+  ariaLabel = "Search",
 }: SelectProps) => {
   const [query, setQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [currentItems, setCurrentItems] = useState<Item[]>([]);
+  const [activeIndex, setActiveIndex] = useState(-1);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLUListElement>(null);
   const isClearingRef = useRef(false);
+
+  const LIST_ID = "search-list";
+  const INPUT_ID = "search-input";
 
   const handleSearch = (query: string) => {
     setQuery(query);
     onSearch?.(query);
+    setActiveIndex(-1);
   };
 
   const handleClearInput = () => {
     isClearingRef.current = true;
     setQuery("");
     setIsOpen(false);
+    setActiveIndex(-1);
     inputRef.current?.focus();
-    // Reset the clearing flag after a brief delay to allow focus event to complete
     setTimeout(() => {
       isClearingRef.current = false;
     }, 0);
@@ -56,6 +64,7 @@ const Select = ({
   const handleItemClick = (item: Item) => {
     onItemSelected?.(item);
     setIsOpen(false);
+    setActiveIndex(-1);
   };
 
   const handleInputFocus = () => {
@@ -64,7 +73,6 @@ const Select = ({
     }
   };
 
-  // Handle clicks outside the component
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -72,6 +80,7 @@ const Select = ({
         !containerRef.current.contains(event.target as Node)
       ) {
         setIsOpen(false);
+        setActiveIndex(-1);
       }
     };
 
@@ -94,8 +103,9 @@ const Select = ({
   return (
     <div className={styles["container"]} ref={containerRef}>
       <div className={styles["input-container"]}>
-        <Search className={styles["search-icon"]} />
+        <Search className={styles["search-icon"]} aria-hidden="true" />
         <input
+          id={INPUT_ID}
           type="text"
           placeholder="Search games..."
           value={query}
@@ -103,13 +113,24 @@ const Select = ({
           onFocus={handleInputFocus}
           ref={inputRef}
           className={cn(styles["input"], isOpen && styles["open"])}
+          role="combobox"
+          aria-expanded={isOpen}
+          aria-controls={LIST_ID}
+          aria-activedescendant={
+            activeIndex >= 0
+              ? `item-${currentItems[activeIndex].id}`
+              : undefined
+          }
+          aria-label={ariaLabel}
+          aria-busy={isLoading}
         />
         {!isLoading && query.length > 0 && (
           <button
             className={styles["right-icon-container"]}
             onClick={handleClearInput}
+            aria-label="Clear search"
           >
-            <X className={styles["clear-icon"]} />
+            <X className={styles["clear-icon"]} aria-hidden="true" />
           </button>
         )}
         {isLoading && query.length > 0 && (
@@ -118,18 +139,33 @@ const Select = ({
           </div>
         )}
       </div>
-      {/* Always render the list container to allow CSS transitions */}
       {!isLoading && (
         <div
           className={cn(
             styles["list-container"],
             isOpen ? styles["open"] : styles["closed"]
           )}
+          role="region"
+          aria-live="polite"
         >
           <div className={styles["list-content"]}>
-            <ul className={styles["list"]}>
-              {currentItems.map((item) => (
-                <li key={item.id} className={styles["list-item"]}>
+            <ul
+              id={LIST_ID}
+              ref={listRef}
+              className={styles["list"]}
+              role="listbox"
+            >
+              {currentItems.map((item, index) => (
+                <li
+                  key={item.id}
+                  className={cn(
+                    styles["list-item"],
+                    index === activeIndex && styles["active"]
+                  )}
+                  role="option"
+                  id={`item-${item.id}`}
+                  aria-selected={index === activeIndex}
+                >
                   <div
                     className={styles["list-item-content"]}
                     onClick={() => handleItemClick(item)}
@@ -142,7 +178,7 @@ const Select = ({
                 </li>
               ))}
               {currentItems.length === 0 && (
-                <li className={styles["list-item-empty"]}>
+                <li className={styles["list-item-empty"]} role="status">
                   <span className={styles["list-item-empty-text"]}>
                     No results found
                   </span>

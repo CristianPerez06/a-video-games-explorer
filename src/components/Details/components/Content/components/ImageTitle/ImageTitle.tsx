@@ -23,13 +23,23 @@ const ImageTitle = ({
   onCollectGameClick,
 }: ImageTitleProps) => {
   const currentBreakpoint = useBreakpoint();
-
   const isMobile = currentBreakpoint === "xs" || currentBreakpoint === "sm";
 
+  const publisherText =
+    publishers.length > 0
+      ? concatenateStrings(publishers)
+      : "Unknown publisher";
+
   return (
-    <div className={styles["container"]}>
+    <section className={styles["container"]} aria-labelledby="game-title">
       <div className={styles["columns"]}>
-        <div className={styles["image-container"]}>
+        <div
+          className={styles["image-container"]}
+          role="img"
+          aria-label={
+            imageSrc ? `Cover image for ${gameName}` : "No image available"
+          }
+        >
           {!imageSrc && (
             <span className={styles["image-not-found"]}>Image not found</span>
           )}
@@ -37,7 +47,7 @@ const ImageTitle = ({
             <Image
               src={imageSrc}
               className={styles["image-cover"]}
-              alt="Game cover"
+              alt={`Cover image for ${gameName}`}
               width={isMobile ? 83 : 270}
               height={isMobile ? 110 : 326}
               priority={true}
@@ -46,29 +56,41 @@ const ImageTitle = ({
         </div>
 
         <div className={styles["right-column"]}>
-          <span className={styles["title"]}>{gameName}</span>
+          <h1 id="game-title" className={styles["title"]}>
+            {gameName}
+          </h1>
           {publishers.length > 0 && (
-            <span className={styles["publisher"]}>
-              {concatenateStrings(publishers)}
-            </span>
+            <p className={styles["publisher"]} aria-label="Game publisher">
+              {publisherText}
+            </p>
           )}
-          <div className={styles["desktop-button-container"]}>
+          <div
+            className={styles["desktop-button-container"]}
+            role="group"
+            aria-label="Game collection actions"
+          >
             <Button
               label={isGameCollected ? "Game collected" : "Collect game"}
               onClick={onCollectGameClick}
               variant={isGameCollected ? "secondary" : "primary"}
+              aria-pressed={isGameCollected}
             />
           </div>
         </div>
       </div>
-      <div className={styles["mobile-button-container"]}>
+      <div
+        className={styles["mobile-button-container"]}
+        role="group"
+        aria-label="Game collection actions"
+      >
         <Button
           label={isGameCollected ? "Game collected" : "Collect game"}
           onClick={onCollectGameClick}
           variant={isGameCollected ? "secondary" : "primary"}
+          aria-pressed={isGameCollected}
         />
       </div>
-    </div>
+    </section>
   );
 };
 
