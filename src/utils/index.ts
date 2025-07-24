@@ -38,6 +38,7 @@ export const sortGames = (
 export const mapGameToSavedGame = (game: IGDBGame): SavedGame => {
   return {
     id: game.id.toString(),
+    name: game.name,
     imageSrc: game.cover?.image_id
       ? `https://images.igdb.com/igdb/image/upload/t_cover_big/${game.cover.image_id}.jpg`
       : undefined,

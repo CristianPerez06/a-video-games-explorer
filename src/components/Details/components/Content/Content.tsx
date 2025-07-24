@@ -1,12 +1,14 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { useGamesStore } from "@/providers";
 import { Spinner, Toast } from "@/client/components";
+import { Grid } from "@/components/shared";
 import { mapGameToGameDetails } from "@/utils";
 import { GameDetails } from "@/types";
-import { SimilarGames, Media, Summary, Chips, ImageTitle } from "./components";
+import { Media, Summary, Chips, ImageTitle } from "./components";
 
 import styles from "./Content.module.scss";
 
@@ -18,6 +20,8 @@ const Content = ({ gameId }: ContentProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [game, setGame] = useState<GameDetails>();
   const { games, addGame, removeGame } = useGamesStore((state) => state);
+
+  const router = useRouter();
 
   const fetchGameDetails = useCallback(async (id: string) => {
     try {
@@ -54,15 +58,12 @@ const Content = ({ gameId }: ContentProps) => {
     }
   }, []);
 
-  useEffect(() => {
-    fetchGameDetails(gameId);
-  }, [fetchGameDetails, gameId]);
-
   const handleCollectGameClick = () => {
     if (!game) return;
 
     const savedGame = {
       id: game.id,
+      name: game.name,
       imageSrc: game.imageSrc,
       releaseDate: game.releaseDate,
       addedAt: new Date(),
@@ -83,7 +84,23 @@ const Content = ({ gameId }: ContentProps) => {
     if (!game) return;
 
     removeGame(game.id);
+
+    toast(
+      <Toast
+        variant="success"
+        title="Game removed"
+        description={`${game.name} has been removed from your collection`}
+      />
+    );
   };
+
+  const handleSimilarGameClick = (gameId: string) => {
+    router.push(`/details/${gameId}`);
+  };
+
+  useEffect(() => {
+    fetchGameDetails(gameId);
+  }, [fetchGameDetails, gameId]);
 
   const isGameCollected = games.some((game) => game.id === gameId);
 
@@ -128,7 +145,15 @@ const Content = ({ gameId }: ContentProps) => {
           )}
           {game.similarGames.length > 0 && (
             <div className={styles["fifth-row"]}>
-              <SimilarGames games={game.similarGames} />
+              <Grid
+                games={game.similarGames.map((game) => ({
+                  id: game.id,
+                  name: game.name,
+                  imageSrc: game.imageSrc,
+                  addedAt: new Date(),
+                }))}
+                onCardClick={handleSimilarGameClick}
+              />
             </div>
           )}
         </div>

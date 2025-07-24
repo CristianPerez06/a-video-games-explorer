@@ -24,6 +24,7 @@ const Picture = ({ src, alt }: PictureProps) => {
       onError={() => {
         setImageError(true);
       }}
+      priority={true}
     />
   );
 };

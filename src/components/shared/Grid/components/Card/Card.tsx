@@ -10,7 +10,7 @@ interface CardProps {
   id: string;
   imageSrc?: string;
   onClick: (gameId: string) => void;
-  onDeleteClick: (gameId: string) => void;
+  onDeleteClick?: (gameId: string) => void;
 }
 
 const Card = ({ id, imageSrc, onClick, onDeleteClick }: CardProps) => {
@@ -30,16 +30,19 @@ const Card = ({ id, imageSrc, onClick, onDeleteClick }: CardProps) => {
             alt="Game image"
             width={isMobile ? 114 : 170}
             height={isMobile ? 152 : 226}
+            priority={true}
           />
         )}
       </div>
-      <button
-        className={styles["action-button"]}
-        onClick={() => onDeleteClick(id)}
-        aria-label="Card action"
-      >
-        <Trash className={styles["trash-icon"]} />
-      </button>
+      {onDeleteClick && (
+        <button
+          className={styles["action-button"]}
+          onClick={() => onDeleteClick(id)}
+          aria-label="Card action"
+        >
+          <Trash className={styles["trash-icon"]} />
+        </button>
+      )}
     </div>
   );
 };

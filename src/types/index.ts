@@ -1,5 +1,6 @@
 export type SavedGame = {
   id: string;
+  name: string;
   imageSrc?: string;
   releaseDate?: Date;
   addedAt: Date;
