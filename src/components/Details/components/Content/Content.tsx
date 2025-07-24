@@ -13,20 +13,20 @@ import { Media, Summary, Chips, ImageTitle } from "./components";
 import styles from "./Content.module.scss";
 
 interface ContentProps {
-  gameId: string;
+  gameSlug: string;
 }
 
-const Content = ({ gameId }: ContentProps) => {
+const Content = ({ gameSlug }: ContentProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [game, setGame] = useState<GameDetails>();
   const { games, addGame, removeGame } = useGamesStore((state) => state);
 
   const router = useRouter();
 
-  const fetchGameDetails = useCallback(async (id: string) => {
+  const fetchGameDetails = useCallback(async (slug: string) => {
     try {
       setIsLoading(true);
-      const response = await fetch(`/api/games/details/${id}`);
+      const response = await fetch(`/api/games/details/${slug}`);
 
       if (!response.ok) {
         toast(
@@ -67,6 +67,7 @@ const Content = ({ gameId }: ContentProps) => {
       imageSrc: game.imageSrc,
       releaseDate: game.releaseDate,
       addedAt: new Date(),
+      slug: game.slug,
     };
 
     addGame(savedGame);
@@ -99,10 +100,10 @@ const Content = ({ gameId }: ContentProps) => {
   };
 
   useEffect(() => {
-    fetchGameDetails(gameId);
-  }, [fetchGameDetails, gameId]);
+    fetchGameDetails(gameSlug);
+  }, [fetchGameDetails, gameSlug]);
 
-  const isGameCollected = games.some((game) => game.id === gameId);
+  const isGameCollected = games.some((game) => game.slug === gameSlug);
 
   return (
     <div className={styles["container"]}>
@@ -155,6 +156,7 @@ const Content = ({ gameId }: ContentProps) => {
                     name: game.name,
                     imageSrc: game.imageSrc,
                     addedAt: new Date(),
+                    slug: game.slug,
                   }))}
                   onCardClick={handleSimilarGameClick}
                 />

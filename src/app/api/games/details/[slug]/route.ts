@@ -48,12 +48,12 @@ const getAccessToken = async (): Promise<string> => {
 // GET /api/games/details/[id]
 export const GET = async (
   _request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ slug: string }> }
 ) => {
   try {
-    const { id } = await params;
+    const { slug } = await params;
 
-    if (!id) {
+    if (!slug) {
       return NextResponse.json({ game: null });
     }
 
@@ -66,6 +66,7 @@ export const GET = async (
 
     const token = await getAccessToken();
 
+    debugger;
     const response = await fetch("https://api.igdb.com/v4/games", {
       method: "POST",
       headers: {
@@ -85,8 +86,9 @@ export const GET = async (
           screenshots.image_id,
           similar_games.id,
           similar_games.name,
-          similar_games.cover.image_id;
-        where id = ${id};
+          similar_games.cover.image_id,
+          slug;
+        where slug = "${slug}";
       `,
     });
 

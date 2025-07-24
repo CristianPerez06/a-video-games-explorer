@@ -4,16 +4,16 @@ import styles from "./details.module.scss";
 
 interface DetailsPageProps {
   params: Promise<{
-    id: string;
+    slug: string;
   }>;
 }
 
 const Details = async ({ params }: DetailsPageProps) => {
-  const { id } = await params;
+  const { slug } = await params;
 
   return (
     <div className={styles["container"]}>
-      <DetailsContent gameId={id} />
+      <DetailsContent slug={slug} />
     </div>
   );
 };

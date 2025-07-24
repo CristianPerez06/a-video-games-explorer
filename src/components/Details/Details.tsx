@@ -3,14 +3,14 @@ import { Header, Content } from "./components";
 import styles from "./Details.module.scss";
 
 interface DetailsProps {
-  gameId: string;
+  slug: string;
 }
 
-const Details = ({ gameId }: DetailsProps) => {
+const Details = ({ slug }: DetailsProps) => {
   return (
     <div className={styles["container"]}>
       <Header />
-      <Content gameId={gameId} />
+      <Content gameSlug={slug} />
     </div>
   );
 };

@@ -46,6 +46,7 @@ export const mapGameToSavedGame = (game: IGDBGame): SavedGame => {
       ? new Date(fromUnixTime(game.first_release_date))
       : new Date(1970, 0, 1),
     addedAt: new Date(),
+    slug: game.slug,
   };
 };
 
@@ -101,7 +102,9 @@ export const mapGameToGameDetails = (game: IGDBGame): GameDetails => {
         imageSrc: similarGame.cover?.image_id
           ? `https://images.igdb.com/igdb/image/upload/t_cover_big/${similarGame.cover.image_id}.jpg`
           : undefined,
+        slug: similarGame.slug,
       })) || [],
+    slug: game.slug,
   };
 };
 
