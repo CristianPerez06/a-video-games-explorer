@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { IGDBGame } from "@/types";
 
-// TODO -  Move to .env
-const clientId = "qg0heh2xjyvud06ubvl5sxc8bkbzo1";
-const clientSecret = "ms9gjn8v9tpklffkbfkh8kbjvt2op1";
+const clientId = process.env.CLIENT_ID;
+const clientSecret = process.env.CLIENT_SECRET;
+
+console.log("clientId", clientId);
+console.log("clientSecret", clientSecret);
 
 // Cache for access token
 let accessToken: string | null = null;
