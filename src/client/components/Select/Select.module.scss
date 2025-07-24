@@ -36,7 +36,7 @@
   }
 }
 
-.icon {
+.search-icon {
   position: absolute;
   height: var(--size-4);
   width: var(--size-4);
@@ -47,7 +47,7 @@
   color: #c698b8;
 }
 
-.clear-icon-container {
+.right-icon-container {
   position: absolute;
   display: flex;
   align-items: center;
@@ -73,6 +73,21 @@
   position: absolute;
   width: 100%;
   z-index: 2;
+
+  /* Simple fade animation */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 100ms ease-in-out;
+
+  &.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  &.closed {
+    opacity: 0;
+    pointer-events: none;
+  }
 }
 
 .list-content {

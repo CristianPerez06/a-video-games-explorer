@@ -21,7 +21,9 @@ type SelectItem = {
 const Search = () => {
   const router = useRouter();
 
-  const [searchItemResults, setSearchItemResults] = useState<SelectItem[]>([]);
+  const [searchItemResults, setSearchItemResults] = useState<
+    SelectItem[] | null
+  >(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const mapGamesToSelectItems = useCallback(
