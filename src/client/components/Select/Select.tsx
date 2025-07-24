@@ -17,7 +17,7 @@ type Item = {
 };
 
 interface SelectProps {
-  items: Item[];
+  items: Item[] | null;
   isLoading?: boolean;
   onSearch: (query: string) => void;
   onItemSelected: (item: Item) => void;
@@ -59,7 +59,7 @@ const Select = ({
   };
 
   const handleInputFocus = () => {
-    if (query.length > 0 && !isClearingRef.current) {
+    if (query.length > 0 && !isClearingRef.current && !isLoading) {
       setIsOpen(true);
     }
   };
@@ -82,17 +82,19 @@ const Select = ({
   }, []);
 
   useEffect(() => {
-    setIsOpen(query.length >= MIN_QUERY_LENGTH);
-
-    if (items.length > 0) {
-      setCurrentItems(items);
+    if (!items || isLoading) {
+      setIsOpen(false);
+      return;
     }
-  }, [items, query]);
+
+    setIsOpen(query.length >= MIN_QUERY_LENGTH);
+    setCurrentItems(items);
+  }, [items, query, isLoading]);
 
   return (
     <div className={styles["container"]} ref={containerRef}>
       <div className={styles["input-container"]}>
-        <Search className={styles["icon"]} />
+        <Search className={styles["search-icon"]} />
         <input
           type="text"
           placeholder="Search games..."
@@ -102,46 +104,47 @@ const Select = ({
           ref={inputRef}
           className={cn(styles["input"], isOpen && styles["open"])}
         />
-        {query.length > 0 && (
+        {!isLoading && query.length > 0 && (
           <button
-            className={styles["clear-icon-container"]}
+            className={styles["right-icon-container"]}
             onClick={handleClearInput}
           >
             <X className={styles["clear-icon"]} />
           </button>
         )}
+        {isLoading && query.length > 0 && (
+          <div className={styles["right-icon-container"]}>
+            <Spinner size="sm" />
+          </div>
+        )}
       </div>
-      {isOpen && (
-        <div className={styles["list-container"]}>
+      {/* Always render the list container to allow CSS transitions */}
+      {!isLoading && (
+        <div
+          className={cn(
+            styles["list-container"],
+            isOpen ? styles["open"] : styles["closed"]
+          )}
+        >
           <div className={styles["list-content"]}>
             <ul className={styles["list"]}>
-              {isLoading && (
-                <li className={styles["list-item-loading"]}>
-                  <div className={styles["list-item-loading-spinner"]}>
-                    <Spinner size="sm" />
+              {currentItems.map((item) => (
+                <li key={item.id} className={styles["list-item"]}>
+                  <div
+                    className={styles["list-item-content"]}
+                    onClick={() => handleItemClick(item)}
+                  >
+                    {item.image && <Picture src={item.image} alt={item.name} />}
+                    <span className={styles["list-item-content-text"]}>
+                      {item.name}
+                    </span>
                   </div>
                 </li>
-              )}
-              {!isLoading &&
-                currentItems.map((item) => (
-                  <li key={item.id} className={styles["list-item"]}>
-                    <div
-                      className={styles["list-item-content"]}
-                      onClick={() => handleItemClick(item)}
-                    >
-                      {item.image && (
-                        <Picture src={item.image} alt={item.name} />
-                      )}
-                      <span className={styles["list-item-content-text"]}>
-                        {item.name}
-                      </span>
-                    </div>
-                  </li>
-                ))}
-              {!isLoading && currentItems.length === 0 && (
+              ))}
+              {currentItems.length === 0 && (
                 <li className={styles["list-item-empty"]}>
                   <span className={styles["list-item-empty-text"]}>
-                    Nothing to show
+                    No results found
                   </span>
                 </li>
               )}

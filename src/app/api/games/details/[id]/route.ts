@@ -49,7 +49,6 @@ export const GET = async (
   { params }: { params: Promise<{ id: string }> }
 ) => {
   try {
-    debugger;
     const { id } = await params;
 
     if (!id) {
