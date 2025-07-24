@@ -40,10 +40,34 @@
 
 .fourth-row {
   width: 100%;
-  padding-top: var(--size-10);
+  padding-top: var(--size-6);
 }
 
 .fifth-row {
   width: 100%;
-  padding-top: var(--size-10);
+  padding-top: var(--size-6);
+}
+
+.similar-games-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-4);
+
+  @include breakpoint(md) {
+    gap: var(--size-2);
+  }
+}
+
+.similar-games-title {
+  font-family: var(--font-default);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0;
+
+  background: var(--text-color-h1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }

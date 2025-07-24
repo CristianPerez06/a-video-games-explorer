@@ -1,3 +1,6 @@
+// This route handles requests for the home page game data by authenticating with the IGDB API
+// and fetching featured and popular games to display on the landing page.
+
 import { NextResponse } from "next/server";
 import { IGDBGame } from "@/types";
 

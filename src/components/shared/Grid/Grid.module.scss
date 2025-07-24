@@ -26,11 +26,9 @@
   grid-gap: var(--size-2);
   grid-template-columns: repeat(auto-fit, 114px);
   justify-content: center;
-  padding-top: var(--size-3);
 
   @include breakpoint(md) {
     grid-gap: var(--size-4);
     grid-template-columns: repeat(auto-fit, 170px);
-    padding-top: var(--size-5);
   }
 }

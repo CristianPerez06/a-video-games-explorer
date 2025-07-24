@@ -145,15 +145,20 @@ const Content = ({ gameId }: ContentProps) => {
           )}
           {game.similarGames.length > 0 && (
             <div className={styles["fifth-row"]}>
-              <Grid
-                games={game.similarGames.map((game) => ({
-                  id: game.id,
-                  name: game.name,
-                  imageSrc: game.imageSrc,
-                  addedAt: new Date(),
-                }))}
-                onCardClick={handleSimilarGameClick}
-              />
+              <div className={styles["similar-games-container"]}>
+                <span className={styles["similar-games-title"]}>
+                  Similar Games
+                </span>
+                <Grid
+                  games={game.similarGames.map((game) => ({
+                    id: game.id,
+                    name: game.name,
+                    imageSrc: game.imageSrc,
+                    addedAt: new Date(),
+                  }))}
+                  onCardClick={handleSimilarGameClick}
+                />
+              </div>
             </div>
           )}
         </div>
