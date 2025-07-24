@@ -68,8 +68,16 @@ const Library = () => {
     router.push(`/details/${gameId}`);
   };
 
-  const handleDeleteClick = (gameId: string) => {
+  const handleDeleteClick = (gameId: string, gameName: string) => {
     removeGame(gameId);
+
+    toast(
+      <Toast
+        variant="success"
+        title="Game removed"
+        description={`${gameName} has been removed from your collection`}
+      />
+    );
   };
 
   useEffect(() => {

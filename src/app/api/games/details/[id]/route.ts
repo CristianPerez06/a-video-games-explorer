@@ -1,3 +1,6 @@
+// This route handles requests for detailed game information by authenticating with the IGDB API
+// and fetching specific game data based on the provided game ID.
+
 import { NextRequest, NextResponse } from "next/server";
 import { IGDBGame } from "@/types";
 

@@ -1,30 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Gaming Haven Z
 
-## Getting Started
+Gaming Haven Z is a modern web application that serves as your ultimate destination for exploring and discovering video games. Built with Next.js and powered by the IGDB API, it provides a seamless and interactive experience for gamers to search, browse, and learn about their favorite games.
+
+## Key Features
+
+- **Extensive Game Database**: Access a vast collection of games with detailed information including descriptions, ratings, release dates, and platforms
+- **Smart Search**: Find games quickly with an intelligent search system that provides real-time suggestions
+- **Responsive Design**: Enjoy a consistent experience across all devices with a mobile-first, responsive interface
+- **Modern UI/UX**: Clean, intuitive interface designed for optimal user experience
+- **Performance Optimized**: Fast loading times and smooth interactions through Next.js optimizations
+
+Whether you're a casual gamer looking to discover new titles or a gaming enthusiast seeking detailed information about specific games, Gaming Haven Z provides the tools and information you need in an elegant, user-friendly package.
+
+## Live Demo
+
+Experience Gaming Haven Z in action at [https://aerolab-frontend-code-challenge.vercel.app/](https://aerolab-frontend-code-challenge.vercel.app/). The production deployment showcases all features in a fully optimized environment, demonstrating the smooth performance and polished user experience you can expect from the application.
+
+## Running locally
+
+In case you are curious about running Gaming Haven Z locally, we've made it super easy to get started! Follow these simple steps to set up your own development environment and explore the codebase.
 
 ### Prerequisites
 
 Before running the development server, you need to set up IGDB API credentials:
 
-1. **Get IGDB API Credentials:**
+**Set Environment Variables:**
+Create a `.env` file in the root directory and add:
 
-   - Go to [Twitch Developer Console](https://dev.twitch.tv/console)
-   - Create a new application
-   - Copy your `Client ID` and `Client Secret`
-
-2. **Set Environment Variables:**
-   Create a `.env.local` file in the root directory and add:
-
-   ```
-   IGDB_CLIENT_ID=your_client_id_here
-   IGDB_CLIENT_SECRET=your_client_secret_here
-   ```
-
-   **Note:** These are server-side environment variables (no `NEXT_PUBLIC_` prefix) since the IGDB API is accessed through Next.js API routes for security.
+```
+IGDB_CLIENT_ID=your_client_id_here
+IGDB_CLIENT_SECRET=your_client_secret_here
+```
 
 ### Development Server
 
-First, install dependencies and run the development server:
+Next step is to install dependencies and run the development server:
 
 ```bash
 npm install
@@ -40,61 +50,46 @@ bun install
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open your browser and navigate to [http://localhost:3000](http://localhost:3000) to experience the application firsthand.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Storybook
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Storybook is a powerful tool for UI component development. It allows developers to create and manage UI components in isolation, making it easier to build and maintain user interfaces. Storybook also provides a way to document and test components, ensuring consistent and reliable UI development. It's a great way to visualize and interact with the components in different states, making it easier to develop, test, and showcase UI components.
+To explore the app's basic components, utilize Storybook. Execute the following commands to access it:
 
-## Features
+```bash
+npm run storybook
+# or
+yarn storybook
+# or
+pnpm run storybook
+# or
+bun storybook
+```
 
-### Game Search
+Open your browser and go to [http://localhost:6006](http://localhost:6006) to explore the app's basic components.
 
-- **IGDB Integration**: Powered by the Internet Game Database API
-- **Server-Side API**: Secure server-side integration with Next.js API routes
-- **Real-time Search**: Search games by title, genre, developer, or publisher
-- **Rich Game Data**: Includes cover images, descriptions, ratings, platforms, and more
-- **Performance Optimized**: Caching and optimized API calls
-- **Error Handling**: User-friendly error messages and loading states
+## Technical Stack
 
-### Component Architecture
+Gaming Haven Z is built using the following technologies:
 
-- **Modular Design**: Reusable components following established patterns
-- **TypeScript**: Full type safety throughout the application
-- **SCSS Modules**: Scoped styling with modern CSS features
+- **Next.js**: A React framework that enables server-side rendering and other optimizations for a better user experience.
+- **TypeScript**: A statically typed superset of JavaScript that enhances code quality and developer productivity.
+- **SCSS**: A preprocessor scripting language that extends CSS with advanced features like variables, nesting, and mixins, making it easier to write and maintain stylesheets.
+- **Vercel**: A cloud platform for static sites and serverless functions, used for hosting the application.
+- **IGDB API**: The Internet Game Database API, used for fetching game data.
+- **ESLint**: A tool for identifying and reporting on patterns found in ECMAScript/JavaScript code, used for code quality and consistency.
+- **Prettier**: An opinionated code formatter, used for code formatting consistency.
+- **Cursor**: The integrated development environment (IDE) used for writing and editing code.
+- **GitHub**: The version control system used for managing the codebase.
+- **Figma**: The tool used for design and prototyping.
+- **React Toastify**: The tool used for displaying notifications in the application.
+- **Date fns**: A lightweight JavaScript library for working with dates and times, providing a simple and intuitive API for date manipulation and formatting.
+- **Lodash**: A utility library that provides a wide range of functional programming helpers, making it easier to work with arrays, objects, and functions in JavaScript.
+- **Lucide React**: A React component library for building user interfaces with a focus on simplicity, consistency, and ease of use.
+- **Zustand**: A small, fast, and scalable state management library for React applications that simplifies state management and debugging.
+- **Storybook**: A tool for UI component development that allows developers to create and manage UI components in isolation, making it easier to build and maintain user interfaces.
 
-## API Configuration
+## Notes for the Reviewer
 
-The application uses the IGDB (Internet Game Database) API for game data through Next.js API routes:
-
-- **Server-Side Authentication**: OAuth2 token management handled securely on the server
-- **API Routes**:
-  - `GET /api/games/search?q={query}` - Search for games
-  - `GET /api/games/[id]` - Get detailed game information
-- **Rate Limiting**: Built-in request optimization and caching
-- **Error Handling**: Comprehensive error handling for API failures
-- **Security**: Client secrets are never exposed to the browser
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
-### Environment Variables for Deployment
-
-When deploying, make sure to set the following environment variables in your deployment platform:
-
-- `IGDB_CLIENT_ID` (server-side only)
-- `IGDB_CLIENT_SECRET` (server-side only)
-
-**Important:** These should be set as server-side environment variables, NOT as `NEXT_PUBLIC_` variables, to keep your credentials secure.
+The app isn’t currently connected to a backend to save data and uses Zustand to manage state instead. On first load, the Home page fetches the top 10 rated games from IGDB and stores them in state to mimic saved games, avoiding an empty state. After that, you can add or remove games from the Saved Games list. If you remove all games, the empty state will show.

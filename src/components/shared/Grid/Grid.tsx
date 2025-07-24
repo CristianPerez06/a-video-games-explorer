@@ -6,7 +6,7 @@ import styles from "./Grid.module.scss";
 interface GridProps {
   games: SavedGame[];
   onCardClick: (gameId: string) => void;
-  onDeleteClick?: (gameId: string) => void;
+  onDeleteClick?: (gameId: string, gameName: string) => void;
 }
 
 const Grid = ({ games, onCardClick, onDeleteClick }: GridProps) => {
@@ -21,7 +21,7 @@ const Grid = ({ games, onCardClick, onDeleteClick }: GridProps) => {
                 id={item.id}
                 imageSrc={item.imageSrc}
                 onClick={onCardClick}
-                onDeleteClick={onDeleteClick}
+                onDeleteClick={() => onDeleteClick?.(item.id, item.name)}
               />
             );
           })}

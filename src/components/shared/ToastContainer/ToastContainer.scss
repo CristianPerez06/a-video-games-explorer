@@ -2,11 +2,13 @@
   width: auto;
   height: auto;
   margin: 0;
-  padding: 0;
+  padding: 8px 0 0 0;
   border: none;
   box-shadow: none;
+  background: transparent;
 }
 
 .Toastify__toast-container {
+  background: transparent;
   bottom: 40px;
 }
