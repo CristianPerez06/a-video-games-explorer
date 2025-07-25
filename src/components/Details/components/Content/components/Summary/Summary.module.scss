@@ -24,12 +24,12 @@
 .description {
   font-family: var(--font-default);
   font-weight: 500;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 20px;
   letter-spacing: 0;
   color: var(--text-color-h4);
 
   @include breakpoint(md) {
-    font-size: 14px;
+    font-size: 16px;
   }
 }
