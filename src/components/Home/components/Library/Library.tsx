@@ -21,11 +21,12 @@ const Library = () => {
   const [activeSort, setActiveSort] = useState("last-added");
 
   const router = useRouter();
-  const { games, addGames, setGames, removeGame } = useGamesStore(
-    (state) => state
-  );
+  const { games, addGames, removeGame } = useGamesStore((state) => state);
   const sortButtonsRef = useRef<HTMLDivElement>(null);
-  const isSortButtonsVisible = useIntersectionObserver(sortButtonsRef);
+  const isSortButtonsVisible = useIntersectionObserver({
+    ref: sortButtonsRef,
+    defaultValue: true,
+  });
 
   const fetchGames = useCallback(async (): Promise<SavedGame[]> => {
     try {
@@ -62,8 +63,6 @@ const Library = () => {
 
   const handleSortClick = (sortId: string) => {
     setActiveSort(sortId);
-    // const sortedGames = sortGames(games, sortId);
-    // setGames(sortedGames);
   };
 
   const handleCardClick = (slug: string) => {

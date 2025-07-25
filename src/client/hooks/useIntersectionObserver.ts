@@ -2,8 +2,16 @@
 
 import { useState, useEffect } from "react";
 
-const useIntersectionObserver = (ref: React.RefObject<HTMLElement | null>) => {
-  const [isIntersecting, setIntersecting] = useState(false);
+interface UseIntersectionObserverProps {
+  ref: React.RefObject<HTMLElement | null>;
+  defaultValue?: boolean;
+}
+
+const useIntersectionObserver = ({
+  ref,
+  defaultValue = false,
+}: UseIntersectionObserverProps) => {
+  const [isIntersecting, setIntersecting] = useState(defaultValue);
 
   useEffect(() => {
     const element = ref.current;
