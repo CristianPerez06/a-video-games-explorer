@@ -107,6 +107,7 @@ const Content = ({ gameSlug }: ContentProps) => {
 
   return (
     <div className={styles["container"]}>
+      This is just a test for the PR
       {isLoading && (
         <div className={styles["spinner-container"]}>
           <Spinner size="lg" variant="dark" />
