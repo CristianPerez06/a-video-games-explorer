@@ -86,6 +86,7 @@ export const GET = async (
           screenshots.image_id,
           similar_games.id,
           similar_games.name,
+          similar_games.slug,
           similar_games.cover.image_id,
           slug;
         where slug = "${slug}";
