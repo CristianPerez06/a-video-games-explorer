@@ -102,7 +102,7 @@
 }
 
 .list {
-  max-height: 223px;
+  max-height: 216px;
   padding: 6px var(--size-2);
   box-sizing: border-box;
   overflow-y: auto;
@@ -168,6 +168,9 @@
   font-size: 14px;
   line-height: 20px;
   color: var(--gray-1000);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .list-item-loading {
