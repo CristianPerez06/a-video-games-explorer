@@ -95,8 +95,8 @@ const Content = ({ gameSlug }: ContentProps) => {
     );
   };
 
-  const handleSimilarGameClick = (gameId: string) => {
-    router.push(`/details/${gameId}`);
+  const handleSimilarGameClick = (slug: string) => {
+    router.push(`/details/${slug}`);
   };
 
   useEffect(() => {
