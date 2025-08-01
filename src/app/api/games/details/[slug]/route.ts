@@ -66,7 +66,6 @@ export const GET = async (
 
     const token = await getAccessToken();
 
-    debugger;
     const response = await fetch("https://api.igdb.com/v4/games", {
       method: "POST",
       headers: {
