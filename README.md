@@ -1,4 +1,4 @@
-# a-video-game-explorer
+# a-video-games-explorer
 
 A modern web application that serves as your ultimate destination for exploring and discovering video games. Built with Next.js and powered by the IGDB API, it provides a seamless and interactive experience for gamers to search, browse, and learn about their favorite games.
 

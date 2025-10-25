@@ -18,11 +18,11 @@ export const metadata: Metadata = {
     "reviews",
     "Game Haven Z",
   ],
-  metadataBase: new URL("https://a-video-game-explorer.vercel.app/"),
+  metadataBase: new URL("https://a-video-games-explorer.vercel.app/"),
   openGraph: {
     title: "Gaming Haven Z",
     description: "Discover and explore the best video games on Gaming Haven Z.",
-    url: "https://a-video-game-explorer.vercel.app/",
+    url: "https://a-video-games-explorer.vercel.app/",
     siteName: "Gaming Haven Z",
     locale: "en_US",
     type: "website",
